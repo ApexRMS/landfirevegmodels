@@ -56,7 +56,7 @@
           displayName="Succcession Class Descriptions"
           dataScope="Scenario">
           <datasheets>
-            <datasheet name="SuccessionClassDescription" dislplayName="Succession Class Descriptions">
+            <datasheet name="SuccessionClassDescription" dislplayName="Succession Class Descriptions"  allowTextWrap="True">
               <columns>
                 <column name="SucccessionClassDescriptionID" dataType="Integer" isPrimary="True"/>
                 <column name="ScenarioID" dataType="Integer"/>
