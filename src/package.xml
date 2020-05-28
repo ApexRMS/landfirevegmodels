@@ -56,14 +56,14 @@
           displayName="Succcession Class Descriptions"
           dataScope="Scenario">
           <datasheets>
-            <datasheet name="SuccessionClassDescription" dislplayName="Succession Class Descriptions">
+            <datasheet name="SuccessionClassDescription" dislplayName="Succession Class Descriptions" allowTextWrap="True">
               <columns>
                 <column name="SucccessionClassDescriptionID" dataType="Integer" isPrimary="True"/>
                 <column name="ScenarioID" dataType="Integer"/>
-                <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel"/>
-                <column name="ClassLabelID" dataType="Integer" displayName="Succession Class" validationType="Datasheet" formula1="ClassLabel"/>
-                <column name="StateClassID" dataType="Integer" displayName="Class" validationType="Datasheet" formula1="stsim_StateClass" allowDbNull="False"/>
-				        <column name="Description" dataType="String"/>
+                <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel" fillWeight="15"/>
+                <column name="ClassLabelID" dataType="Integer" displayName="Succession Class" validationType="Datasheet" formula1="ClassLabel" fillWeight="20"/>
+                <column name="StateClassID" dataType="Integer" displayName="Class" validationType="Datasheet" formula1="stsim_StateClass" allowDbNull="False" fillWeight="15"/>
+				        <column name="Description" dataType="String" fillWeight="50"/>
               </columns>
             </datasheet>
           </datasheets>
