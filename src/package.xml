@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<package name="landfirevegmodels" displayName="landfirevegmodels" version="1.0.0" url="https://github.com/apexrms/landfirevegmodels">
+<package name="landfirevegmodels" displayName="Landfire vegetation models" version="1.0.0" url="https://github.com/apexrms/landfirevegmodels">
   <transformers>
-    <transformer name="landfirevegmodels" displayName="landfirevegmodels" isPrimary="True">
+    <transformer name="landfirevegmodels" displayName="Landfire vegetation models" isPrimary="True">
       <runtime>
         <transformer name="stsim_Primary"/>
       </runtime>
@@ -80,16 +80,16 @@
                 <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel"/>
                 <column name="UpperLayerLifeformID" dataType="Integer" displayName="Upper Layer Lifeform" validationType="Datasheet" formula1="UpperLayerLifeform" allowDbNull="False"/>
 				        <column name="HeightClassID" dataType="Integer" displayName="Height Class (m)" validationType="Datasheet" formula1="HeightClass" allowDbNull="False"/>
-                <column name="ClassLabel0to10" dataType="Integer" displayName="Cover 0-10%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel10to20" dataType="Integer" displayName="Cover 10-20%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel20to30" dataType="Integer" displayName="Cover 20-30%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel30to40" dataType="Integer" displayName="Cover 30-40%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel40to50" dataType="Integer" displayName="Cover 40-50%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel50to60" dataType="Integer" displayName="Cover 50-60%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel60to70" dataType="Integer" displayName="Cover 60-70%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel70to80" dataType="Integer" displayName="Cover 70-80%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel80to90" dataType="Integer" displayName="Cover 80-90%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel90t100" dataType="Integer" displayName="Cover 90-100%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+                <column name="ClassLabel0to10" dataType="Integer" displayName="0-10%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+                <column name="ClassLabel10to20" dataType="Integer" displayName="10-20%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+                <column name="ClassLabel20to30" dataType="Integer" displayName="20-30%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+                <column name="ClassLabel30to40" dataType="Integer" displayName="30-40%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+                <column name="ClassLabel40to50" dataType="Integer" displayName="40-50%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+                <column name="ClassLabel50to60" dataType="Integer" displayName="50-60%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+                <column name="ClassLabel60to70" dataType="Integer" displayName="60-70%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+                <column name="ClassLabel70to80" dataType="Integer" displayName="70-80%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+                <column name="ClassLabel80to90" dataType="Integer" displayName="80-90%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+                <column name="ClassLabel90t100" dataType="Integer" displayName="90-100%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
                 <column name="AdditionalRules" displayName="Additional rules" dataType="String"/>
               </columns>
             </datasheet>
@@ -161,7 +161,7 @@
         <item name="stsim_AgeType"/>
         <item name="stsim_AgeGroup"/>
       </group>
-      <group name="LANDFIRE">
+      <group name="Landfire">
         <item name="UpperLayerLifeform"/>
         <item name="HeightClass"/>
         <item name="ClassLabel"/>
@@ -187,7 +187,7 @@
       </group>
       <item name="stsim_TransitionTarget"/>
       <item name="stsim_OutputOptions"/>
-      <group name="LandfireGroup" displayName="LANDFIRE">
+      <group name="LandfireGroup" displayName="Landfire">
         <item name="SuccessionClassDescription"/>
         <item name="SuccessionClassMappingRule"/>
       </group>
