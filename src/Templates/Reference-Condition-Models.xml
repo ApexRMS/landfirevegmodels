@@ -2,5 +2,6 @@
 <template
   name="Reference-Condition-Models"
   displayName="Reference Condition Models"
-  location="http://s3-us-west-2.amazonaws.com/apexrms.com.public/Data/A217/Reference-Condition-Models.zip">
+  location="http://s3-us-west-2.amazonaws.com/apexrms.com.public/Data/A217/Reference-Condition-Models.zip"
+  liveUpdate="True">
 </template>
