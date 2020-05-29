@@ -60,10 +60,10 @@
               <columns>
                 <column name="SucccessionClassDescriptionID" dataType="Integer" isPrimary="True"/>
                 <column name="ScenarioID" dataType="Integer"/>
-                <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel" fillWeight="15"/>
-                <column name="ClassLabelID" dataType="Integer" displayName="Succession Class" validationType="Datasheet" formula1="ClassLabel" fillWeight="20"/>
-                <column name="StateClassID" dataType="Integer" displayName="Class" validationType="Datasheet" formula1="stsim_StateClass" allowDbNull="False" fillWeight="15"/>
-				        <column name="Description" dataType="String" fillWeight="50"/>
+                <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel" fillWeight="10"/>
+                <column name="ClassLabelID" dataType="Integer" displayName="SClass Label" validationType="Datasheet" formula1="ClassLabel" fillWeight="10"/>
+                <column name="StateClassID" dataType="Integer" displayName="State Class" validationType="Datasheet" formula1="stsim_StateClass" allowDbNull="False" fillWeight="10"/>
+				        <column name="Description" dataType="String" fillWeight="70"/>
               </columns>
             </datasheet>
           </datasheets>
