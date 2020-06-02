@@ -2,6 +2,9 @@
 <template
   name="Reference-Condition-Models"
   displayName="Reference Models"
+  description="
+    {br}LANDFIRE reference condtion state-and-transition simulation models developed to simulate the US 
+    {br}historic range of variability (HRV) in landscape vegetation composition and disturbance regimes."
   location="http://s3-us-west-2.amazonaws.com/apexrms.com.public/Data/A217/Reference-Condition-Models.zip"
   liveUpdate="True">
 </template>
