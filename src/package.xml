@@ -119,7 +119,7 @@
           <item name="stsim_StratumRasterMap"/>
           <item name="stsim_StateAttributeRasterMap"/>
           <item name="stsim_TransitionAttributeRasterMap"/>
-          <item name="stsim_AATPRasterMap"/>
+          <item name="stsim_AverageTransitionProbabilityRasterMap"/>
           <item name="stsim_TransitionEventRasterMap"/>
         </group>
       </group>
@@ -186,7 +186,11 @@
         <item name="stsim_InitialConditionsSpatial" displayName="Spatial"/>
       </group>
       <item name="stsim_TransitionTarget"/>
-      <item name="stsim_OutputOptions"/>
+      <group name="OutputOptions" displayName="Output Options">
+        <item name="stsim_OutputOptions"/>
+        <item name="stsim_OutputOptionsSpatial"/>
+        <item name="stsim_OutputOptionsSpatialAverage"/>
+      </group>
       <group name="LandfireGroup" displayName="Landfire">
         <item name="SuccessionClassDescription"/>
         <item name="SuccessionClassMappingRule"/>
