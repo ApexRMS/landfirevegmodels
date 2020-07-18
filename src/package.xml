@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<package name="landfirevegmodels" displayName="Landfire vegetation models" version="1.0.1" url="https://github.com/apexrms/landfirevegmodels">
+<package name="landfirevegmodels" displayName="Landfire vegetation models" version="1.0.2" url="https://github.com/apexrms/landfirevegmodels">
   <transformers>
     <transformer name="landfirevegmodels" displayName="Landfire vegetation models" isPrimary="True">
       <runtime>
@@ -22,6 +22,36 @@
           </datasheets>
         </datafeed>
         <datafeed
+          name="LeafForm"
+          displayName="Leaf Form"
+          dataScope="Project">
+          <datasheets>
+            <datasheet name="LeafForm" shortName="LeafForm" dislplayName="Leaf Form" valueMember="LeafFormID" displayMember="Name">
+              <columns>
+                <column name="LeafFormID" dataType="Integer" isPrimary="True"/>
+                <column name="ProjectID" dataType="Integer"/>
+                <column name="Name" dataType="String" fillWeight="10"/>
+				        <column name="Description" dataType="String" isOptional="True"/>
+              </columns>
+            </datasheet>
+          </datasheets>
+        </datafeed>
+      <datafeed
+        name="Composition"
+        displayName="Composition"
+        dataScope="Project">
+        <datasheets>
+          <datasheet name="Composition" shortName="Composition" dislplayName="Composition" valueMember="CompositionID" displayMember="Name">
+            <columns>
+              <column name="CompositionID" dataType="Integer" isPrimary="True"/>
+              <column name="ProjectID" dataType="Integer"/>
+              <column name="Name" dataType="String" fillWeight="10"/>
+              <column name="Description" dataType="String" isOptional="True"/>
+            </columns>
+          </datasheet>
+        </datasheets>
+      </datafeed>
+      <datafeed
           name="HeightClass"
           displayName="Height Class"
           dataScope="Project">
@@ -79,6 +109,8 @@
                 <column name="ScenarioID" dataType="Integer"/>
                 <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel"/>
                 <column name="UpperLayerLifeformID" dataType="Integer" displayName="Upper Layer Lifeform" validationType="Datasheet" formula1="UpperLayerLifeform" allowDbNull="False"/>
+                <column name="LeafFormID" dataType="Integer" displayName="Leaf Form" validationType="Datasheet" formula1="LeafForm" allowDbNull="True"/>
+                <column name="CompositionID" dataType="Integer" displayName="Composition" validationType="Datasheet" formula1="Composition" allowDbNull="True"/>
 				        <column name="HeightClassID" dataType="Integer" displayName="Height Class (m)" validationType="Datasheet" formula1="HeightClass" allowDbNull="False"/>
                 <column name="ClassLabel0to10" dataType="Integer" displayName="0-10%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
                 <column name="ClassLabel10to20" dataType="Integer" displayName="10-20%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
@@ -163,6 +195,8 @@
       </group>
       <group name="Landfire">
         <item name="UpperLayerLifeform"/>
+        <item name="LeafForm"/>
+        <item name="Composition"/>
         <item name="HeightClass"/>
         <item name="ClassLabel"/>
       </group>
