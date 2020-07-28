@@ -3,9 +3,10 @@ using System;
 using System.IO;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
-using SyncroSim.Core;
 using System.Diagnostics;
+using System.Windows.Forms;
+using System.Collections.Generic;
+using SyncroSim.Core;
 
 namespace LandFireVegModels
 {
@@ -14,6 +15,7 @@ namespace LandFireVegModels
         private Library m_Library;
         private Project m_Project;
         private DataTable m_Strata;
+        private string m_FileName;
         private Color m_HighlightColor = Color.FromArgb(51, 153, 255);
         private const string LOCATION_KEY = "landfirevegmodels_LastLocation";
 
@@ -42,11 +44,24 @@ namespace LandFireVegModels
         {
             get
             {
-                string f = this.TextBoxName.Text.Trim();
-                string p = this.TextBoxLocation.Text.Trim();
-
-                return Path.Combine(p, f);
+                return this.m_FileName;
             }
+        }
+
+        public List<int> GetSelectedStratumIds()
+        {
+            List<int> Ids = new List<int>();
+
+            foreach (DataRow dr in this.m_Strata.Rows)
+            {
+                if (Convert.ToBoolean(dr["Selected"]))
+                {
+                    Ids.Add(Convert.ToInt32(dr["Id"]));
+                }
+            }
+
+            Debug.Assert(Ids.Count > 0);
+            return Ids;
         }
 
         public void Initialize(Library library)
@@ -137,20 +152,28 @@ namespace LandFireVegModels
 
             foreach (Project p in this.m_Library.Projects)
             {
-                if (!p.IsDeleted && Proj == null)
+                if (!p.IsDeleted)
                 {
-                    Proj = p;
+                    if (Proj == null)
+                    {
+                        Proj = p;
+                    }
+
                     c++;
                 }
             }
 
             if (c == 0)
             {
-                MessageBox.Show("No projects found in specified library.");
+                Shared.ShowMessageBox(
+                    "No projects found in specified library.", 
+                    MessageBoxButtons.OK);
             }
             else if (c > 1)
             {
-                MessageBox.Show("Multiple projects found in specified library.  Using the first project found.");
+                Shared.ShowMessageBox(
+                    "Multiple projects found in specified library.  Using the first project found.", 
+                    MessageBoxButtons.OK);
             }
 
             return Proj;
@@ -160,15 +183,70 @@ namespace LandFireVegModels
         {
             foreach (DataRow dr in this.m_Strata.Rows)
             {
-                object v = dr["Selected"];
-
-                if (v != DBNull.Value && (bool)v == true)
+                if (Convert.ToBoolean(dr["Selected"]))
                 {
                     return true;
                 }
             }
 
             return false;
+        }
+
+        private static bool ValidateFileName(string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                Shared.ShowMessageBox("You must provide a file name.", MessageBoxButtons.OK);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ValidateFileLocation(string location)
+        {
+            if (string.IsNullOrWhiteSpace(location))
+            {
+                Shared.ShowMessageBox("You must provide a folder name.", MessageBoxButtons.OK);
+                return false;
+            }
+
+            try
+            {
+                if (!Directory.Exists(location))
+                {
+                    Directory.CreateDirectory(location);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                string msg =
+                    "Cannot create a Library in the specified folder.  More information:" +
+                    Environment.NewLine + 
+                    Environment.NewLine + 
+                    ex.Message;
+
+                Shared.ShowMessageBox(msg, MessageBoxButtons.OK);
+            }
+
+            return false;
+        }
+
+        private static bool ConfirmOverwriteFile(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                string msg = "The file already exists.  Overwrite?";
+
+                if (Shared.ShowMessageBox(msg, MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void ButtonBrowse_Click(object sender, System.EventArgs e)
@@ -184,18 +262,38 @@ namespace LandFireVegModels
 
         private void ButtonOK_Click(object sender, System.EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(this.TextBoxName.Text))
+            //File name
+            string ProposedFileName = this.TextBoxName.Text.Trim();
+
+            if (!ValidateFileName(ProposedFileName))
             {
-                MessageBox.Show("You must provide a file name");
+                this.ActiveControl = this.TextBoxName;
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(this.TextBoxLocation.Text))
+            if (!ProposedFileName.EndsWith(".ssim", StringComparison.OrdinalIgnoreCase))
             {
-                MessageBox.Show("You must provide a folder name");
+                ProposedFileName = ProposedFileName + ".ssim";
+            }
+
+            //Location
+            string ProposedLocation = this.TextBoxLocation.Text.Trim();
+
+            if (!this.ValidateFileLocation(ProposedLocation))
+            {
+                this.ActiveControl = this.TextBoxLocation;
                 return;
             }
 
+            //Confirm overwrite
+            string ProposedFullPath = Path.Combine(ProposedLocation, ProposedFileName);
+
+            if (!ConfirmOverwriteFile(ProposedFullPath))
+            {
+                return;
+            }
+
+            this.m_FileName = ProposedFullPath;
             this.SaveLocation();
 
             this.DialogResult = DialogResult.OK;
@@ -305,7 +403,9 @@ namespace LandFireVegModels
                 e.CellStyle.SelectionBackColor = Color.White;
             }
 
-            e.Paint(e.ClipBounds, DataGridViewPaintParts.All ^ DataGridViewPaintParts.Focus);
+            e.Paint(
+                e.ClipBounds, 
+                DataGridViewPaintParts.All ^ DataGridViewPaintParts.Focus);
         }
     }
 }

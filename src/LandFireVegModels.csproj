@@ -98,6 +98,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SessionTransformer.cs" />
+    <Compile Include="Shared.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Search16x16.png" />
