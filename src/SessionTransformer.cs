@@ -157,6 +157,11 @@ namespace LandFireVegModels
                             PurgeStratumIds(TableName, "StratumIDDest", KeepStratumIdString, store);
                         }
                     }
+
+                    string Title = Path.GetFileNameWithoutExtension(targetFileName);
+                    string q = string.Format(CultureInfo.InvariantCulture, "UPDATE core_Library SET Name='{0}'", Title);
+
+                    store.ExecuteNonQuery(q);
                 }
 
                 scope.Complete();

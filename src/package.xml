@@ -103,7 +103,7 @@
           displayName="Succcession Class Mapping Rules"
           dataScope="Scenario">
           <datasheets>
-            <datasheet name="SuccessionClassMappingRule" dislplayName="Succession Class Mapping Rules">
+            <datasheet name="SuccessionClassMappingRule" dislplayName="Succession Class Mapping Rules" filterColumns="StratumID">
               <columns>
                 <column name="SuccessionClassMappingRuleID" dataType="Integer" isPrimary="True"/>
                 <column name="ScenarioID" dataType="Integer"/>

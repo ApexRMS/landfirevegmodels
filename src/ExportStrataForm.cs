@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Globalization;
 using SyncroSim.Core;
 
 namespace LandFireVegModels
@@ -15,6 +16,7 @@ namespace LandFireVegModels
         private Library m_Library;
         private Project m_Project;
         private DataTable m_Strata;
+        private DataView m_StrataView;
         private string m_FileName;
         private Color m_HighlightColor = Color.FromArgb(51, 153, 255);
         private const string LOCATION_KEY = "landfirevegmodels_LastLocation";
@@ -75,6 +77,8 @@ namespace LandFireVegModels
             this.FillStrataGrid();
             this.EnableControls();
             this.RestoreLocation();
+
+            this.ActiveControl = this.TextBoxSearch;
         }
 
         private void EnableControls()
@@ -122,7 +126,6 @@ namespace LandFireVegModels
             this.m_Strata.Columns.Add(new DataColumn("Id", typeof(int)));
             this.m_Strata.Columns.Add(new DataColumn("Name", typeof(string)));
             this.m_Strata.Columns.Add(new DataColumn("Description", typeof(string)));
-            this.m_Strata.Columns.Add(new DataColumn("ContainsSearch", typeof(bool)));
 
             foreach (DataRow dr in ds.GetData().Rows)
             {
@@ -136,13 +139,12 @@ namespace LandFireVegModels
                     false,
                     dr["StratumID"],
                     dr["Name"],
-                    dr["Description"], 
-                    false
+                    dr["Description"]
                 });
             }
 
-            DataView dv = new DataView(this.m_Strata, null, "Name", DataViewRowState.CurrentRows);
-            this.DataGridViewMain.DataSource = dv;
+            this.m_StrataView = new DataView(this.m_Strata, null, "Name", DataViewRowState.CurrentRows);
+            this.DataGridViewMain.DataSource = this.m_StrataView;
         }
 
         private Project GetFirstProject()
@@ -322,90 +324,41 @@ namespace LandFireVegModels
             }
         }
 
+        private void ButtonCheckVisible_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow dgr in this.DataGridViewMain.Rows)
+            {
+                DataRowView drv = (DataRowView)dgr.DataBoundItem;
+                drv.Row["Selected"] = true;
+            }
+
+            this.EnableControls();
+        }
+
         private void ButtonUncheckAll_Click(object sender, EventArgs e)
         {
             foreach(DataRow dr in this.m_Strata.Rows)
             {
                 dr["Selected"] = false;
             }
+
+            this.EnableControls();
         }
 
         private void TextBoxSearch_TextChanged(object sender, EventArgs e)
         {
             string t = this.TextBoxSearch.Text;
             bool IsEmpty = string.IsNullOrEmpty(t);
-            bool AtLeastOne = false;
 
-            foreach (DataRow dr in this.m_Strata.Rows)
+            if (IsEmpty)
             {
-                dr["ContainsSearch"] = false;
-
-                if (!IsEmpty)
-                {
-                    string n = Convert.ToString(dr["Name"]);
-                    string d = Convert.ToString(dr["Description"]);
-
-                    if (n.IndexOf(t, 0, StringComparison.CurrentCultureIgnoreCase) != -1 ||
-                        d.IndexOf(t, 0, StringComparison.CurrentCultureIgnoreCase) != -1)
-                    {
-                        dr["ContainsSearch"] = true;
-                        AtLeastOne = true;
-                    }
-                }
-            }
-
-            if (AtLeastOne)
-            {
-                foreach (DataGridViewRow dgr in this.DataGridViewMain.Rows)
-                {
-                    DataRow dr = ((DataRowView)dgr.DataBoundItem).Row;
-
-                    if (Convert.ToBoolean(dr["ContainsSearch"]))
-                    {
-                        this.DataGridViewMain.CurrentCell = dgr.Cells[this.ColumnName.Index];
-                        break;
-                    }
-                }
-            }
-
-            this.DataGridViewMain.Invalidate();
-        }
-
-        private void DataGridViewMain_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.RowIndex < 0)
-            {
-                return;
-            }
-
-            if (e.ColumnIndex != this.ColumnName.Index && 
-                e.ColumnIndex != this.ColumnDescription.Index)
-            {
-                return;
-            }
-
-            DataGridViewRow dgr = this.DataGridViewMain.Rows[e.RowIndex];
-            DataRow dr = ((DataRowView)dgr.DataBoundItem).Row;
-            bool ContainsSearch = Convert.ToBoolean(dr["ContainsSearch"]);
-
-            if (ContainsSearch)
-            {
-                e.CellStyle.ForeColor = Color.White;
-                e.CellStyle.SelectionForeColor = Color.White;
-                e.CellStyle.BackColor = this.m_HighlightColor;
-                e.CellStyle.SelectionBackColor = this.m_HighlightColor;
+                this.m_StrataView.RowFilter = null;
             }
             else
             {
-                e.CellStyle.ForeColor = Color.Black;
-                e.CellStyle.SelectionForeColor = Color.Black;
-                e.CellStyle.BackColor = Color.White;
-                e.CellStyle.SelectionBackColor = Color.White;
+                this.m_StrataView.RowFilter = string.Format(CultureInfo.InvariantCulture,
+                    "Name LIKE '%{0}%' OR Description LIKE '%{1}%'", t, t);
             }
-
-            e.Paint(
-                e.ClipBounds, 
-                DataGridViewPaintParts.All ^ DataGridViewPaintParts.Focus);
         }
     }
 }

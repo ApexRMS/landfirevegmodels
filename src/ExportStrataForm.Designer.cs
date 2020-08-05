@@ -58,6 +58,7 @@
             this.ButtonUncheckAll = new System.Windows.Forms.Button();
             this.TextBoxSearch = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.ButtonCheckSelected = new System.Windows.Forms.Button();
             this.PanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewMain)).BeginInit();
             this.PanelTop.SuspendLayout();
@@ -67,7 +68,7 @@
             // ButtonBrowse
             // 
             this.ButtonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonBrowse.Location = new System.Drawing.Point(840, 48);
+            this.ButtonBrowse.Location = new System.Drawing.Point(859, 48);
             this.ButtonBrowse.Margin = new System.Windows.Forms.Padding(4);
             this.ButtonBrowse.Name = "ButtonBrowse";
             this.ButtonBrowse.Size = new System.Drawing.Size(100, 28);
@@ -79,7 +80,7 @@
             // ButtonOK
             // 
             this.ButtonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonOK.Location = new System.Drawing.Point(726, 94);
+            this.ButtonOK.Location = new System.Drawing.Point(745, 94);
             this.ButtonOK.Margin = new System.Windows.Forms.Padding(4);
             this.ButtonOK.Name = "ButtonOK";
             this.ButtonOK.Size = new System.Drawing.Size(100, 28);
@@ -95,14 +96,14 @@
             this.TextBoxName.Location = new System.Drawing.Point(93, 14);
             this.TextBoxName.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxName.Name = "TextBoxName";
-            this.TextBoxName.Size = new System.Drawing.Size(732, 22);
+            this.TextBoxName.Size = new System.Drawing.Size(751, 22);
             this.TextBoxName.TabIndex = 1;
             // 
             // ButtonCancel
             // 
             this.ButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonCancel.Location = new System.Drawing.Point(840, 94);
+            this.ButtonCancel.Location = new System.Drawing.Point(859, 94);
             this.ButtonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(100, 28);
@@ -141,7 +142,7 @@
             this.TextBoxLocation.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxLocation.Name = "TextBoxLocation";
             this.TextBoxLocation.ReadOnly = true;
-            this.TextBoxLocation.Size = new System.Drawing.Size(732, 22);
+            this.TextBoxLocation.Size = new System.Drawing.Size(751, 22);
             this.TextBoxLocation.TabIndex = 3;
             // 
             // PanelMain
@@ -161,7 +162,7 @@
             this.PanelMain.PaintRightBorder = true;
             this.PanelMain.PaintTopBorder = true;
             this.PanelMain.ShowBorder = true;
-            this.PanelMain.Size = new System.Drawing.Size(734, 361);
+            this.PanelMain.Size = new System.Drawing.Size(753, 342);
             this.PanelMain.TabIndex = 19;
             // 
             // DataGridViewMain
@@ -213,10 +214,9 @@
             this.DataGridViewMain.SelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
             this.DataGridViewMain.SelectedForeColor = System.Drawing.Color.White;
             this.DataGridViewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DataGridViewMain.Size = new System.Drawing.Size(732, 359);
+            this.DataGridViewMain.Size = new System.Drawing.Size(751, 340);
             this.DataGridViewMain.TabIndex = 0;
             this.DataGridViewMain.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewMain_CellContentClick);
-            this.DataGridViewMain.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DataGridViewMain_CellPainting);
             // 
             // ColumnSelected
             // 
@@ -290,7 +290,7 @@
             this.PanelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelTop.Location = new System.Drawing.Point(0, 0);
             this.PanelTop.Name = "PanelTop";
-            this.PanelTop.Size = new System.Drawing.Size(953, 65);
+            this.PanelTop.Size = new System.Drawing.Size(972, 65);
             this.PanelTop.TabIndex = 0;
             // 
             // LabelProject
@@ -340,18 +340,18 @@
             this.PanelBottom.Controls.Add(this.ButtonOK);
             this.PanelBottom.Controls.Add(this.TextBoxName);
             this.PanelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PanelBottom.Location = new System.Drawing.Point(0, 514);
+            this.PanelBottom.Location = new System.Drawing.Point(0, 495);
             this.PanelBottom.Name = "PanelBottom";
-            this.PanelBottom.Size = new System.Drawing.Size(953, 133);
-            this.PanelBottom.TabIndex = 5;
+            this.PanelBottom.Size = new System.Drawing.Size(972, 133);
+            this.PanelBottom.TabIndex = 6;
             // 
             // ButtonUncheckAll
             // 
-            this.ButtonUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ButtonUncheckAll.Location = new System.Drawing.Point(92, 465);
+            this.ButtonUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonUncheckAll.Location = new System.Drawing.Point(729, 446);
             this.ButtonUncheckAll.Name = "ButtonUncheckAll";
-            this.ButtonUncheckAll.Size = new System.Drawing.Size(100, 28);
-            this.ButtonUncheckAll.TabIndex = 2;
+            this.ButtonUncheckAll.Size = new System.Drawing.Size(117, 28);
+            this.ButtonUncheckAll.TabIndex = 5;
             this.ButtonUncheckAll.Text = "Uncheck All";
             this.ButtonUncheckAll.UseVisualStyleBackColor = true;
             this.ButtonUncheckAll.Click += new System.EventHandler(this.ButtonUncheckAll_Click);
@@ -359,21 +359,32 @@
             // TextBoxSearch
             // 
             this.TextBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.TextBoxSearch.Location = new System.Drawing.Point(261, 469);
+            this.TextBoxSearch.Location = new System.Drawing.Point(153, 450);
             this.TextBoxSearch.Name = "TextBoxSearch";
             this.TextBoxSearch.Size = new System.Drawing.Size(187, 22);
-            this.TextBoxSearch.TabIndex = 4;
+            this.TextBoxSearch.TabIndex = 3;
             this.TextBoxSearch.TextChanged += new System.EventHandler(this.TextBoxSearch_TextChanged);
             // 
             // label6
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(199, 471);
+            this.label6.Location = new System.Drawing.Point(91, 452);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(57, 17);
-            this.label6.TabIndex = 3;
+            this.label6.TabIndex = 2;
             this.label6.Text = "Search:";
+            // 
+            // ButtonCheckSelected
+            // 
+            this.ButtonCheckSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonCheckSelected.Location = new System.Drawing.Point(606, 446);
+            this.ButtonCheckSelected.Name = "ButtonCheckSelected";
+            this.ButtonCheckSelected.Size = new System.Drawing.Size(117, 28);
+            this.ButtonCheckSelected.TabIndex = 4;
+            this.ButtonCheckSelected.Text = "Check Visible";
+            this.ButtonCheckSelected.UseVisualStyleBackColor = true;
+            this.ButtonCheckSelected.Click += new System.EventHandler(this.ButtonCheckVisible_Click);
             // 
             // ExportStrataForm
             // 
@@ -381,11 +392,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonCancel;
-            this.ClientSize = new System.Drawing.Size(953, 647);
+            this.ClientSize = new System.Drawing.Size(972, 628);
             this.Controls.Add(this.TextBoxSearch);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.PanelBottom);
             this.Controls.Add(this.PanelTop);
+            this.Controls.Add(this.ButtonCheckSelected);
             this.Controls.Add(this.ButtonUncheckAll);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.PanelMain);
@@ -432,5 +444,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDescription;
         private System.Windows.Forms.TextBox TextBoxSearch;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button ButtonCheckSelected;
     }
 }
