@@ -18,8 +18,15 @@ namespace LandFireVegModels
         {
             base.Configure();
 
-            WinFormSession wfs = (WinFormSession)this.Session;
-            wfs.MainMenuLoaded += this.OnMainMenuLoaded;
+            Debug.Assert(
+                this.Session.GetType() == typeof(Session) ||
+                this.Session.GetType() == typeof(WinFormSession));
+
+            if (typeof(WinFormSession).IsAssignableFrom(this.Session.GetType()))
+            {
+                WinFormSession wfs = (WinFormSession)this.Session;
+                wfs.MainMenuLoaded += this.OnMainMenuLoaded;
+            }
         }
 
         private void OnMainMenuLoaded(object sender, EventArgs e)
