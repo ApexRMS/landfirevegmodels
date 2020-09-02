@@ -103,6 +103,10 @@
   <ItemGroup>
     <Content Include="Images\Search16x16.png" />
     <Content Include="package.xml" />
+    <Content Include="Templates\Current-Example-Models.png" />
+    <Content Include="Templates\Current-Example-Models.xml" />
+    <Content Include="Templates\Reference-Condition-Models.png" />
+    <Content Include="Templates\Reference-Condition-Models.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ExportStrataForm.resx">
