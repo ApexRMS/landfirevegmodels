@@ -69,7 +69,7 @@ namespace LandFireVegModels
         public void Initialize(Library library)
         {
             this.m_Library = library;
-            this.m_Project = this.GetFirstProject();
+            this.m_Project = this.GetActiveProject();
 
             this.LabelLibrary.Text = this.m_Library.Connection.ConnectionString;
             this.LabelProject.Text = this.m_Project.Name;
@@ -147,38 +147,20 @@ namespace LandFireVegModels
             this.DataGridViewMain.DataSource = this.m_StrataView;
         }
 
-        private Project GetFirstProject()
+        private Project GetActiveProject()
         {
-            int c = 0;
-            Project Proj = null;
-
-            foreach (Project p in this.m_Library.Projects)
-            {
-                if (!p.IsDeleted)
-                {
-                    if (Proj == null)
-                    {
-                        Proj = p;
-                    }
-
-                    c++;
-                }
-            }
-
-            if (c == 0)
+            if (this.m_Library.Session.ActiveProject == null)
             {
                 Shared.ShowMessageBox(
                     "No projects found in specified library.", 
                     MessageBoxButtons.OK);
-            }
-            else if (c > 1)
-            {
-                Shared.ShowMessageBox(
-                    "Multiple projects found in specified library.  Using the first project found.", 
-                    MessageBoxButtons.OK);
-            }
 
-            return Proj;
+                return null;
+            }
+            else
+            {
+                return this.m_Library.Session.ActiveProject;
+            }
         }
 
         private bool AnyStratumSelected()
