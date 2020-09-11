@@ -66,10 +66,10 @@ namespace LandFireVegModels
             return Ids;
         }
 
-        public void Initialize(Library library)
+        public void Initialize(Project project)
         {
-            this.m_Library = library;
-            this.m_Project = this.GetActiveProject();
+            this.m_Project = project;
+            this.m_Library = project.Library;
 
             this.LabelLibrary.Text = this.m_Library.Connection.ConnectionString;
             this.LabelProject.Text = this.m_Project.Name;
@@ -83,8 +83,8 @@ namespace LandFireVegModels
 
         private void EnableControls()
         {
-            this.ButtonOK.Enabled = (this.m_Project != null && this.AnyStratumSelected());
-            this.ButtonBrowse.Enabled = (this.m_Project != null && this.DataGridViewMain.Rows.Count > 0);
+            this.ButtonOK.Enabled = (this.AnyStratumSelected());
+            this.ButtonBrowse.Enabled = (this.DataGridViewMain.Rows.Count > 0);
         }
 
         private void SaveLocation()
@@ -108,11 +108,6 @@ namespace LandFireVegModels
 
         private void FillStrataGrid()
         {
-            if (this.m_Project == null)
-            {
-                return;
-            }
-
             DataSheet ds = this.m_Project.GetDataSheet("stsim_Stratum");
 
             if (ds == null)
@@ -145,22 +140,6 @@ namespace LandFireVegModels
 
             this.m_StrataView = new DataView(this.m_Strata, null, "Name", DataViewRowState.CurrentRows);
             this.DataGridViewMain.DataSource = this.m_StrataView;
-        }
-
-        private Project GetActiveProject()
-        {
-            if (this.m_Library.Session.ActiveProject == null)
-            {
-                Shared.ShowMessageBox(
-                    "No projects found in specified library.", 
-                    MessageBoxButtons.OK);
-
-                return null;
-            }
-            else
-            {
-                return this.m_Library.Session.ActiveProject;
-            }
         }
 
         private bool AnyStratumSelected()

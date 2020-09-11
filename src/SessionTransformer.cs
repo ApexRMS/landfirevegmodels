@@ -63,19 +63,63 @@ namespace LandFireVegModels
             }
         }
 
+        private static Project GetProject(Library library)
+        {
+            if (library == null)
+            {
+                Debug.Assert(false);
+                return null;
+            }
+
+            int c = 0;
+            Project Proj = null;
+
+            foreach (Project p in library.Projects)
+            {
+                if (!p.IsDeleted)
+                {
+                    if (Proj == null)
+                    {
+                        Proj = p;
+                    }
+
+                    c++;
+                }
+            }
+
+            if (c == 0)
+            {
+                Shared.ShowMessageBox(
+                    "The Export Strata feature is only available for Libraries with at least one Project.",
+                    MessageBoxButtons.OK);
+
+                return null;
+            }
+            else if (c > 1)
+            {
+                Shared.ShowMessageBox(
+                    "The Export Strata feature is only available for Libraries with a single Project.",
+                    MessageBoxButtons.OK);
+
+                return null;
+            }
+
+            return Proj;
+        }
+
         private void OnExecuteExportStrata(Command cmd)
         {
             ExportStrataForm f = new ExportStrataForm();
             WinFormSession wfs = (WinFormSession)this.Session;
             Library lib = wfs.Application.GetSelectedLibrary();
+            Project Proj = GetProject(lib);
 
-            if (lib == null)
+            if (Proj == null)
             {
-                Debug.Assert(false);
                 return;
             }
 
-            f.Initialize(lib);
+            f.Initialize(Proj);
 
             if (f.ShowDialog() != DialogResult.OK)
             {
