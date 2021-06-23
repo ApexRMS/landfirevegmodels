@@ -43,10 +43,8 @@ Browse source code at
 Report a bug at
 [http://github.com/ApexRMS/landfirevegmodels/issues](http://github.com/ApexRMS/landfirevegmodels/issues)
 <br>
-<br>
 Visit The Nature Conservancy's LANDFIRE site at
 [https://thenatureconservancy.github.io/landfiremodels/](https://thenatureconservancy.github.io/landfiremodels/)
-<br>
 <br>
 Read the accompanying scientific publication at
 [https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecs2.3484](https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecs2.3484)
