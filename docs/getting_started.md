@@ -25,7 +25,17 @@ title: Getting started
 * A download window should appear and your library will be created from an online template.
 <br>
 <br>
-5. For more documentation on the SyncroSim user interface see: [http://docs.syncrosim.com/getting_started/quickstart.html](http://docs.syncrosim.com/getting_started/quickstart.html)
+5. Right-click on the Project datafeed (**Definitions**) and select **Properties**. After installing the *landfirevegmodels* package, there should now be a **Landfire** tab here. In this tab you can specify the details about the quantity, type, and composition of the vegetation for your model.
+<br>
+<img align="middle" style="padding: 1px" width="300" src="assets/project-landfire-tab-opened.png">
 <br>
 <br>
-6. *landfirevegmodels* is a wrapper for the ST-Sim package for SyncroSim. For more information on ST-Sim see: [http://docs.stsim.net/](http://docs.stsim.net/)
+6. Right-click on the Scenario datafeed and select **Properties**. There should now be a **Landfire** tab here as well. This tab provides information about the models, including detailed *Succession Class Descriptions* and *Succession Class Mapping Rules*.
+<br>
+<img align="middle" style="padding: 1px" width="300" src="assets/scenario-landfire-tab-opened.png">
+<br>
+<br>
+7. For more documentation on the SyncroSim user interface see: [http://docs.syncrosim.com/getting_started/quickstart.html](http://docs.syncrosim.com/getting_started/quickstart.html)
+<br>
+<br>
+8. *landfirevegmodels* is a wrapper for the ST-Sim package for SyncroSim. For more information on ST-Sim see: [http://docs.stsim.net/](http://docs.stsim.net/)
