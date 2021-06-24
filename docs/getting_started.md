@@ -9,14 +9,14 @@ title: Getting started
 
 1. Download and install SyncroSim 2.2.19 or later from https://syncrosim.com/download/
 
-2. Install necessary packages in SyncroSim by going to **File | Packages | Install...**
+2. Install necessary packages in SyncroSim by going to **File \| Packages \| Install...**
   * ST-Sim 3.2.21 or later
   * landfirevegmodels
 
-3. If you need to update package versions, in SyncroSim go to **File | Packages | Update...**
+3. If you need to update package versions, in SyncroSim go to **File \| Packages \| Update...**
 
 4. Create a new *landfirevegmodels* Library
-* In SyncroSim, select **File | New Library...**
+* In SyncroSim, select **File \| New Library...**
 * Select the *landfirevegmodels* base package and choose either the *Reference Models* or *Example Models* template library.
 * Enter a **Filename** (ok to keep the default) and a **Folder** for your new library and click **OK**.
 * A download window should appear and your library will be created from an online template.
