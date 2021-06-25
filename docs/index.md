@@ -52,6 +52,6 @@ Read the accompanying scientific publication at
 <br>
 ## Developers
 
-Leonardo Frid (Author, maintainer) <a href="https://orcid.org/0000-0002-5489-2337"><img align="middle" style="padding: 0.5px" width="17" src="assets/images/ORCID.png"></a>
+[The Nature Conservancy LANDFIRE team](https://www.conservationgateway.org/ConservationPractices/FireLandscapes/LANDFIRE/contacts/Pages/default.aspx)
 <br>
-Alex Embrey (Author)
+[ApexRMS](https://apexrms.com/people/)
