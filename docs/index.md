@@ -20,7 +20,7 @@ For more information on how these types of models can be used for assessing the 
 <br>
 ## Requirements
 
-This package requires SyncroSim [2.2.27](https://syncrosim.com/download/).
+This package requires the [latest SyncroSim release](https://syncrosim.com/download/).
 <br>
 <br>
 ## How to Install
