@@ -5,6 +5,11 @@ title: Getting started
 
 # Getting started with **landfirevegmodels**
 
+This tutorial will provide a brief overview of:
+* Installing required packages
+* Creating a new **landfirevegmodels** Library 
+* Configuring the Library
+
 <br>
 
 ## Installing required packages
