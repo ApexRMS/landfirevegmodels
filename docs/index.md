@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Home
-description: "Landing page for the Package"
+description: "SyncroSim package for vegetation dynamics modeling"
 permalink: /
 ---
 
@@ -10,7 +10,7 @@ permalink: /
 <img align="right" style="padding: 13px" width="180" src="assets/images/logo/landfirevegmodels-sticker.png">
 [![GitHub release](https://img.shields.io/github/v/release/ApexRMS/landfirevegmodels.svg?style=for-the-badge&color=d68a06)](https://GitHub.com/ApexRMS/landfirevegmodels/releases/)    <a href="https://github.com/ApexRMS/landfirevegmodels"><img align="middle" style="padding: 1px" width="30" src="assets/images/logo/github-trans2.png">
 
-## Vegetation dynamics modelling framework
+## Vegetation dynamics modeling framework
 
 ### **landfirevegmodels** is a SyncroSim base package to deliver LANDFIRE state-and-transition simulation models of vegetation, based on reference conditions for the U.S. The package is a wrapper for the [ST-Sim](http://docs.stsim.net/){:target="_blank"} package in SyncroSim.
 
