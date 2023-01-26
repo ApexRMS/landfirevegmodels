@@ -5,6 +5,6 @@
   description="
     {br}LANDFIRE example state-and-transition simulation models 
     {br}representing current conditions for selected Biophysical Settings."
-  location="http://s3-us-west-2.amazonaws.com/apexrms.com.public/landfirevegmodels/1.1.0/Current-Example-Models.zip"
+  location="http://s3-us-west-2.amazonaws.com/apexrms.com.public/landfirevegmodels/1.1.1/Current-Example-Models.zip"
   liveUpdate="True">
 </template>
