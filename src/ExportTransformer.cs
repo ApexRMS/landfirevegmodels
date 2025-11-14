@@ -12,7 +12,7 @@ using SyncroSim.Core.Forms;
 
 namespace LandFireVegModels
 {
-    class SessionTransformer : Transformer
+    class ExportTransformer : Transformer
     {
         public override void Configure()
         {
@@ -25,43 +25,43 @@ namespace LandFireVegModels
             if (typeof(WinFormSession).IsAssignableFrom(this.Session.GetType()))
             {
                 WinFormSession wfs = (WinFormSession)this.Session;
-                wfs.MainMenuLoaded += this.OnMainMenuLoaded;
+                //wfs.MainMenuLoaded += this.OnMainMenuLoaded;
             }
         }
 
-        private void OnMainMenuLoaded(object sender, EventArgs e)
-        {
-            WinFormSession wfs = (WinFormSession)this.Session;
-            CommandCollection cmds = wfs.Application.GetMenuCommands();
-            Command EditCommand = Command.FindCommand("ssim_edit_menu", cmds);
-            Debug.Assert(EditCommand != null);
+        //private void OnMainMenuLoaded(object sender, EventArgs e)
+        //{
+        //    WinFormSession wfs = (WinFormSession)this.Session;
+        //    CommandCollection cmds = wfs.Application.GetMenuCommands();
+        //    Command EditCommand = Command.FindCommand("ssim_edit_menu", cmds);
+        //    Debug.Assert(EditCommand != null);
 
-            if (EditCommand != null)
-            {
-                EditCommand.Commands.Add(Command.CreateSeparatorCommand());
+        //    if (EditCommand != null)
+        //    {
+        //        EditCommand.Commands.Add(Command.CreateSeparatorCommand());
 
-                Command LFVMExportStrataCmd = new Command(
-                    "export-lfvm-strata", 
-                    "Export LFVM Strata", 
-                    OnExecuteExportStrata, 
-                    OnUpdateExportStrata);
+        //        Command LFVMExportStrataCmd = new Command(
+        //            "export-lfvm-strata", 
+        //            "Export LFVM Strata", 
+        //            OnExecuteExportStrata, 
+        //            OnUpdateExportStrata);
 
-                EditCommand.Commands.Add(LFVMExportStrataCmd);
-            }
-        }
+        //        EditCommand.Commands.Add(LFVMExportStrataCmd);
+        //    }
+        //}
 
-        private void OnUpdateExportStrata(Command cmd)
-        {
-            cmd.IsEnabled = false;
-            WinFormSession wfs = (WinFormSession)this.Session;
-            Library lib = wfs.Application.GetSelectedLibrary();
+        //private void OnUpdateExportStrata(Command cmd)
+        //{
+        //    cmd.IsEnabled = false;
+        //    WinFormSession wfs = (WinFormSession)this.Session;
+        //    Library lib = wfs.Application.GetSelectedLibrary();
 
-            if (lib != null)
-            {
-                string ptn = lib.GetPrimaryTransformerName();
-                cmd.IsEnabled = (ptn == "landfirevegmodels_landfirevegmodels");
-            }
-        }
+        //    if (lib != null)
+        //    {
+        //        string ptn = lib.GetPrimaryTransformerName();
+        //        cmd.IsEnabled = (ptn == "landfirevegmodels_landfirevegmodels");
+        //    }
+        //}
 
         private static Project GetProject(Library library)
         {
@@ -107,61 +107,61 @@ namespace LandFireVegModels
             return Proj;
         }
 
-        private void OnExecuteExportStrata(Command cmd)
-        {
-            ExportStrataForm f = new ExportStrataForm();
-            WinFormSession wfs = (WinFormSession)this.Session;
-            Library lib = wfs.Application.GetSelectedLibrary();
-            Project Proj = GetProject(lib);
+        //private void OnExecuteExportStrata(Command cmd)
+        //{
+        //    ExportStrataForm f = new ExportStrataForm();
+        //    WinFormSession wfs = (WinFormSession)this.Session;
+        //    Library lib = wfs.Application.GetSelectedLibrary();
+        //    Project Proj = GetProject(lib);
 
-            if (Proj == null)
-            {
-                return;
-            }
+        //    if (Proj == null)
+        //    {
+        //        return;
+        //    }
 
-            f.Initialize(Proj);
+        //    f.Initialize(Proj);
 
-            if (f.ShowDialog() != DialogResult.OK)
-            {
-                return;
-            }
+        //    if (f.ShowDialog() != DialogResult.OK)
+        //    {
+        //        return;
+        //    }
 
-            try
-            {
-                wfs.Application.BeginHourGlass();
+        //    try
+        //    {
+        //        wfs.Application.BeginHourGlass();
 
-                wfs.Application.SetStatusMessageWithEvents(
-                    "Creating Library from selected strata...");
+        //        wfs.Application.SetStatusMessageWithEvents(
+        //            "Creating Library from selected strata...");
 
-                //Create
-                this.CreateLibraryFromStrata(
-                    lib,
-                    f.FileName,
-                    f.GetSelectedStratumIds());
+        //        //Create
+        //        this.CreateLibraryFromStrata(
+        //            lib,
+        //            f.FileName,
+        //            f.GetSelectedStratumIds());
 
-                //Compact
-                this.Session.CompactLibrary(f.FileName);
+        //        //Compact
+        //        this.Session.CompactLibrary(f.FileName);
 
-                //Open
-                wfs.Application.OpenLibrary(f.FileName);
-            }
-            catch(Exception ex)
-            {
-                string msg =
-                    "Cannot create a Library.  More information:" +
-                    Environment.NewLine +
-                    Environment.NewLine +
-                    ex.Message;
+        //        //Open
+        //        wfs.Application.OpenLibrary(f.FileName);
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        string msg =
+        //            "Cannot create a Library.  More information:" +
+        //            Environment.NewLine +
+        //            Environment.NewLine +
+        //            ex.Message;
 
-                Shared.ShowMessageBox(msg, MessageBoxButtons.OK);
-            }
+        //        Shared.ShowMessageBox(msg, MessageBoxButtons.OK);
+        //    }
 
-            finally
-            {
-                wfs.Application.SetStatusMessageWithEvents(null);
-                wfs.Application.EndHourGlass();
-            }
-        }
+        //    finally
+        //    {
+        //        wfs.Application.SetStatusMessageWithEvents(null);
+        //        wfs.Application.EndHourGlass();
+        //    }
+        //}
 
         private void CreateLibraryFromStrata(
             Library sourceLibrary, 

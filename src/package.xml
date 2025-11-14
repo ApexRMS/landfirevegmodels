@@ -1,133 +1,147 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<package name="landfirevegmodels" displayName="LANDFIRE vegetation models" version="1.1.3" url="https://apexrms.github.io/landfirevegmodels/">
+<package name="landfirevegmodels" displayName="LANDFIRE vegetation models" version="2.0.0" minSyncroSimVersion="3.1.22" url="https://apexrms.github.io/landfirevegmodels/">
+
+  <builtFor package="stsim" version="4.5.3"/>
+	
+  <dataSheet name="UpperLayerLifeform" shortName="Lifeform" dislplayName="Upper Layer Lifeform" dataScope="Project" valueMember="UpperLayerLifeformID" displayMember="Name">
+    <column name="Name" dataType="String" fillWeight="10"/>
+    <column name="Description" dataType="String" isOptional="True"/>
+  </dataSheet>
+
+  <dataSheet name="LeafForm" shortName="LeafForm" dislplayName="Leaf Form" dataScope="Project" valueMember="LeafFormID" displayMember="Name">
+    <column name="Name" dataType="String" fillWeight="10"/>
+    <column name="Description" dataType="String" isOptional="True"/>
+  </dataSheet>
+
+  <dataSheet name="Composition" shortName="Composition" dislplayName="Composition" dataScope="Project" valueMember="CompositionID" displayMember="Name">
+    <column name="Name" dataType="String" fillWeight="10"/>
+    <column name="Description" dataType="String" isOptional="True"/>
+  </dataSheet>
+
+  <dataSheet name="HeightClass" dislplayName="Height Class" dataScope="Project" valueMember="HeightClassID" displayMember="Name">
+    <column name="Name" dataType="String" fillWeight="10"/>
+    <column name="Description" dataType="String" isOptional="True"/>
+  </dataSheet>
+
+  <dataSheet name="ClassLabel" dislplayName="Class Label" dataScope="Project" valueMember="ClassLabelID" displayMember="Name">
+    <column name="Name" dataType="String" fillWeight="10"/>
+    <column name="Description" dataType="String" isOptional="True"/>
+  </dataSheet>
+
+  <dataSheet name="SuccessionClassDescription" dislplayName="Succession Class Descriptions" dataScope="Scenario" allowTextWrap="True">
+    <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel" fillWeight="10"/>
+    <column name="ClassLabelID" dataType="Integer" displayName="SClass Label" validationType="Datasheet" formula1="ClassLabel" fillWeight="10"/>
+    <column name="StateClassID" dataType="Integer" displayName="State Class" validationType="Datasheet" formula1="stsim_StateClass" allowDbNull="False" fillWeight="10"/>
+    <column name="Description" dataType="String" fillWeight="70"/>
+  </dataSheet>
+
+  <dataSheet name="SuccessionClassMappingRule" dislplayName="Succession Class Mapping Rules" dataScope="Scenario" filterColumns="StratumID">
+    <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel"/>
+    <column name="UpperLayerLifeformID" dataType="Integer" displayName="Upper Layer Lifeform" validationType="Datasheet" formula1="UpperLayerLifeform" allowDbNull="False"/>
+    <column name="LeafFormID" dataType="Integer" displayName="Leaf Form" validationType="Datasheet" formula1="LeafForm" allowDbNull="True"/>
+    <column name="CompositionID" dataType="Integer" displayName="Composition" validationType="Datasheet" formula1="Composition" allowDbNull="True"/>
+    <column name="HeightClassID" dataType="Integer" displayName="Height Class (m)" validationType="Datasheet" formula1="HeightClass" allowDbNull="False"/>
+    <column name="ClassLabel0to10" dataType="Integer" displayName="0-10%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel10to20" dataType="Integer" displayName="10-20%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel20to30" dataType="Integer" displayName="20-30%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel30to40" dataType="Integer" displayName="30-40%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel40to50" dataType="Integer" displayName="40-50%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel50to60" dataType="Integer" displayName="50-60%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel60to70" dataType="Integer" displayName="60-70%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel70to80" dataType="Integer" displayName="70-80%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel80to90" dataType="Integer" displayName="80-90%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel90t100" dataType="Integer" displayName="90-100%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="AdditionalRules" displayName="Additional rules" dataType="String"/>
+  </dataSheet>
+	
+  <transformer name="Main" displayName="Landfire vegetation models" className="LandFireVegModels.ExportTransformer" classAssembly="LandFireVegModels"/>
+
+  <layout type="Project">
+    <group name="Landfire">
+      <item name="UpperLayerLifeform"/>
+      <item name="LeafForm"/>
+      <item name="Composition"/>
+      <item name="HeightClass"/>
+      <item name="ClassLabel"/>
+    </group>
+  </layout>
+
+  <layout type="Scenario">
+    <group name="LandfireGroup" displayName="Landfire">
+      <item name="SuccessionClassDescription"/>
+      <item name="SuccessionClassMappingRule"/>
+    </group>
+  </layout>
+
+  <updateProvider
+    className="LandFireVegModels.Updates"
+    classAssembly="LandFireVegModels">
+  </updateProvider>
+
+  <!-- OLD STUFF BELOW
   <transformers>
-    <transformer name="landfirevegmodels" displayName="Landfire vegetation models" isPrimary="True">
+    <transformer name="landfirevegmodels" displayName="Landfire vegetation models">
       <runtime>
         <transformer name="stsim_Primary"/>
       </runtime>
-      <datafeeds>
-        <datafeed
+      <dataFeeds>
+        <dataFeed
           name="UpperLayerLifeform"
           displayName="Upper Layer Lifeform"
           dataScope="Project">
-          <datasheets>
-            <datasheet name="UpperLayerLifeform" shortName="Lifeform" dislplayName="Upper Layer Lifeform" valueMember="UpperLayerLifeformID" displayMember="Name">
-              <columns>
-                <column name="UpperLayerLifeformID" dataType="Integer" isPrimary="True"/>
-                <column name="ProjectID" dataType="Integer"/>
-                <column name="Name" dataType="String" fillWeight="10"/>
-                <column name="Description" dataType="String" isOptional="True"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-        <datafeed
+          <dataSheets>
+            
+          </dataSheets>
+        </dataFeed>
+        <dataFeed
           name="LeafForm"
           displayName="Leaf Form"
           dataScope="Project">
-          <datasheets>
-            <datasheet name="LeafForm" shortName="LeafForm" dislplayName="Leaf Form" valueMember="LeafFormID" displayMember="Name">
-              <columns>
-                <column name="LeafFormID" dataType="Integer" isPrimary="True"/>
-                <column name="ProjectID" dataType="Integer"/>
-                <column name="Name" dataType="String" fillWeight="10"/>
-                <column name="Description" dataType="String" isOptional="True"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-        <datafeed
+          <dataSheets>
+
+          </dataSheets>
+        </dataFeed>
+        <dataFeed
           name="Composition"
           displayName="Composition"
           dataScope="Project">
-          <datasheets>
-            <datasheet name="Composition" shortName="Composition" dislplayName="Composition" valueMember="CompositionID" displayMember="Name">
-              <columns>
-                <column name="CompositionID" dataType="Integer" isPrimary="True"/>
-                <column name="ProjectID" dataType="Integer"/>
-                <column name="Name" dataType="String" fillWeight="10"/>
-                <column name="Description" dataType="String" isOptional="True"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-        <datafeed
+          <dataSheets>
+
+          </dataSheets>
+        </dataFeed>
+        <dataFeed
             name="HeightClass"
             displayName="Height Class"
             dataScope="Project">
-          <datasheets>
-            <datasheet name="HeightClass" dislplayName="Height Class" valueMember="HeightClassID" displayMember="Name">
-              <columns>
-                <column name="HeightClassID" dataType="Integer" isPrimary="True"/>
-                <column name="ProjectID" dataType="Integer"/>
-                <column name="Name" dataType="String" fillWeight="10"/>
-                <column name="Description" dataType="String" isOptional="True"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-        <datafeed
+          <dataSheets>
+
+          </dataSheets>
+        </dataFeed>
+        <dataFeed
           name="ClassLabel"
           displayName="Class Label"
           dataScope="Project">
-          <datasheets>
-            <datasheet name="ClassLabel" dislplayName="Class Label" valueMember="ClassLabelID" displayMember="Name">
-              <columns>
-                <column name="ClassLabelID" dataType="Integer" isPrimary="True"/>
-                <column name="ProjectID" dataType="Integer"/>
-                <column name="Name" dataType="String" fillWeight="10"/>
-                <column name="Description" dataType="String" isOptional="True"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-        <datafeed
+          <dataSheets>
+
+          </dataSheets>
+        </dataFeed>
+        <dataFeed
           name="SuccessionClassDescription"
           displayName="Succcession Class Descriptions"
           dataScope="Scenario">
-          <datasheets>
-            <datasheet name="SuccessionClassDescription" dislplayName="Succession Class Descriptions" allowTextWrap="True">
-              <columns>
-                <column name="SucccessionClassDescriptionID" dataType="Integer" isPrimary="True"/>
-                <column name="ScenarioID" dataType="Integer"/>
-                <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel" fillWeight="10"/>
-                <column name="ClassLabelID" dataType="Integer" displayName="SClass Label" validationType="Datasheet" formula1="ClassLabel" fillWeight="10"/>
-                <column name="StateClassID" dataType="Integer" displayName="State Class" validationType="Datasheet" formula1="stsim_StateClass" allowDbNull="False" fillWeight="10"/>
-                <column name="Description" dataType="String" fillWeight="70"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-        <datafeed
+          <dataSheets>
+
+          </dataSheets>
+        </dataFeed>
+        <dataFeed
           name="SuccessionClassMappingRule"
           displayName="Succcession Class Mapping Rules"
           dataScope="Scenario">
-          <datasheets>
-            <datasheet name="SuccessionClassMappingRule" dislplayName="Succession Class Mapping Rules" filterColumns="StratumID">
-              <columns>
-                <column name="SuccessionClassMappingRuleID" dataType="Integer" isPrimary="True"/>
-                <column name="ScenarioID" dataType="Integer"/>
-                <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel"/>
-                <column name="UpperLayerLifeformID" dataType="Integer" displayName="Upper Layer Lifeform" validationType="Datasheet" formula1="UpperLayerLifeform" allowDbNull="False"/>
-                <column name="LeafFormID" dataType="Integer" displayName="Leaf Form" validationType="Datasheet" formula1="LeafForm" allowDbNull="True"/>
-                <column name="CompositionID" dataType="Integer" displayName="Composition" validationType="Datasheet" formula1="Composition" allowDbNull="True"/>
-                <column name="HeightClassID" dataType="Integer" displayName="Height Class (m)" validationType="Datasheet" formula1="HeightClass" allowDbNull="False"/>
-                <column name="ClassLabel0to10" dataType="Integer" displayName="0-10%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel10to20" dataType="Integer" displayName="10-20%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel20to30" dataType="Integer" displayName="20-30%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel30to40" dataType="Integer" displayName="30-40%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel40to50" dataType="Integer" displayName="40-50%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel50to60" dataType="Integer" displayName="50-60%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel60to70" dataType="Integer" displayName="60-70%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel70to80" dataType="Integer" displayName="70-80%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel80to90" dataType="Integer" displayName="80-90%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel90t100" dataType="Integer" displayName="90-100%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="AdditionalRules" displayName="Additional rules" dataType="String"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-      </datafeeds>
+          <dataSheets>
+
+          </dataSheets>
+        </dataFeed>
+      </dataFeeds>
     </transformer>
     <transformer
       name="Session"
@@ -310,5 +324,5 @@
       className="SyncroSim.STSim.STSimMapProvider"
       classAssembly="SyncroSim.STSim">
     </layout>
-  </layouts>
+  </layouts>-->
 </package>
