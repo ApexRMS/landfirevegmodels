@@ -11,11 +11,9 @@ namespace LandFireVegModels
 {
     internal class Updates : DotNetUpdateProvider
     {
-        [UpdateAttribute(2.0, "This update adjust tables so landfirevegmodels works with SyncroSim V3")]
+        [UpdateAttribute(2.0, "This update adjust tables so landfirevegmodels works with SyncroSim V3 and stsim 4.5.3")]
         public static void Update_2_000(DataStore store)
         {
-            Console.WriteLine("HELLO UPDATE!");
-
             store.ExecuteNonQuery("ALTER TABLE stsim_Terminology ADD COLUMN StockUnits TEXT");
             store.ExecuteNonQuery("UPDATE stsim_Terminology SET StockUnits='Tons'");
 
@@ -189,6 +187,9 @@ namespace LandFireVegModels
                 store.ExecuteNonQuery("UPDATE stsim_OutputStratumState SET SecondaryStratumId = NULL WHERE SecondaryStratumId = 0");
                 store.ExecuteNonQuery("UPDATE stsim_OutputStratumState SET TertiaryStratumId = NULL WHERE TertiaryStratumId = 0");
             }
+
+            // Fix typo (three 'c' in succession) in primary key column
+            RenameColumn(store, "landfirevegmodels_SuccessionClassDescription", "SucccessionClassDescriptionID", "SuccessionClassDescriptionId");
         }
     }
 }
