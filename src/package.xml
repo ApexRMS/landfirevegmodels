@@ -54,36 +54,38 @@
     <column name="AdditionalRules" displayName="Additional rules" dataType="String"/>
   </dataSheet>
 
-  <dataSheet name="ExportStrata" dislplayName="Export Strata" dataScope="Scenario">
-	<column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel"/>
-	<column name="Description" dataType="String" displayName="Description" isReadOnly="True"/>
-	<validation validationType="UniqueOrNull" columns="StratumId"/>
+	<dataSheet name="ExportStrata" dataScope="Scenario">
+		<column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel"/>
+	  <column name="Description" dataType="String" displayName="Description" isReadOnly="True"/>
+	  <validation validationType="UniqueOrNull" columns="StratumId"/>
   </dataSheet>
 
-  <dataSheet name="LibraryConfig" dislplayName="Library Config" dataScope="Scenario" isSingleRow="True">
-    <column name="OutputLibraryPath" dataType="String" displayName="Output Library Path" externalFileAbsolute="True" allowDbNull="False"/>
-  </dataSheet>
+	<dataSheet name="ExportLibraryPath" dataScope="Scenario" isSingleRow="True">
+		<column name="Path" dataType="String" displayName="Output Library Path" externalFileAbsolute="True" allowDbNull="False"/>
+	</dataSheet>
+
+	<dataFeed name="ExportDataFeed" displayName="Export Configuration" viewClassName="LandFireVegModels.ExportStrataDataFeedView" viewClassAssembly="LandFireVegModels">
+		<dataSheet name="ExportStrata"/>
+		<dataSheet name="ExportLibraryPath"/>
+	</dataFeed>
 	
   <transformer name="Export" displayName="Export landfire vegetation model Strata" className="LandFireVegModels.ExportTransformer" classAssembly="LandFireVegModels"/>
 
   <layout type="Project">
     <item name="UpperLayerLifeform" displayName="Upper Layer Lifeform"/>
-	<item name="LeafForm" displayName="Leaf Form"/>
-	<item name="Composition" displayName="Composition"/>
-	<item name="HeightClass" displayName="Height Class"/>
-	<item name="ClassLabel" displayName="Class Label"/>
+	  <item name="LeafForm" displayName="Leaf Form"/>
+	  <item name="Composition" displayName="Composition"/>
+	  <item name="HeightClass" displayName="Height Class"/>
+	  <item name="ClassLabel" displayName="Class Label"/>
   </layout>
 
   <layout type="Scenario">
-    <group name="SuccessionClassGroup" displayName="Succession Classes">
-      <item name="SuccessionClassDescription" displayName="Succession Class Description"/>
-	  <item name="SuccessionClassMappingRule" displayName="Succession Class Mapping Rule"/>
-  </group>
-  <group name="ExportConfigurationGroup" displayName="Export Configuration">
-	  <item name="ExportStrata" displayName="Strata"/>
-	  <item name="LibraryConfig" displayName="Library"/>
-	</group>
-  </layout>
+		<item name="ExportDataFeed" displayName="Export Configuration"/>
+		<group name="SuccessionClassGroup" displayName="Succession Classes">
+			<item name="SuccessionClassDescription" displayName="Succession Class Description"/>
+			<item name="SuccessionClassMappingRule" displayName="Succession Class Mapping Rule"/>
+		</group>
+	</layout>
 
   <updateProvider
     className="LandFireVegModels.Updates"
