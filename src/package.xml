@@ -53,24 +53,36 @@
     <column name="ClassLabel90t100" dataType="Integer" displayName="90-100%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
     <column name="AdditionalRules" displayName="Additional rules" dataType="String"/>
   </dataSheet>
+
+  <dataSheet name="ExportStrata" dislplayName="Export Strata" dataScope="Scenario">
+	<column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel"/>
+	<column name="Description" dataType="String" displayName="Description" isReadOnly="True"/>
+	<validation validationType="UniqueOrNull" columns="StratumId"/>
+  </dataSheet>
+
+  <dataSheet name="LibraryConfig" dislplayName="Library Config" dataScope="Scenario" isSingleRow="True">
+    <column name="OutputLibraryPath" dataType="String" displayName="Output Library Path" externalFileAbsolute="True" allowDbNull="False"/>
+  </dataSheet>
 	
-  <transformer name="Main" displayName="Landfire vegetation models" className="LandFireVegModels.ExportTransformer" classAssembly="LandFireVegModels"/>
+  <transformer name="Export" displayName="Export landfire vegetation model Strata" className="LandFireVegModels.ExportTransformer" classAssembly="LandFireVegModels"/>
 
   <layout type="Project">
-    <group name="Landfire">
-      <item name="UpperLayerLifeform"/>
-      <item name="LeafForm"/>
-      <item name="Composition"/>
-      <item name="HeightClass"/>
-      <item name="ClassLabel"/>
-    </group>
+    <item name="UpperLayerLifeform" displayName="Upper Layer Lifeform"/>
+	<item name="LeafForm" displayName="Leaf Form"/>
+	<item name="Composition" displayName="Composition"/>
+	<item name="HeightClass" displayName="Height Class"/>
+	<item name="ClassLabel" displayName="Class Label"/>
   </layout>
 
   <layout type="Scenario">
-    <group name="LandfireGroup" displayName="Landfire">
-      <item name="SuccessionClassDescription"/>
-      <item name="SuccessionClassMappingRule"/>
-    </group>
+    <group name="SuccessionClassGroup" displayName="Succession Classes">
+      <item name="SuccessionClassDescription" displayName="Succession Class Description"/>
+	  <item name="SuccessionClassMappingRule" displayName="Succession Class Mapping Rule"/>
+  </group>
+  <group name="ExportConfigurationGroup" displayName="Export Configuration">
+	  <item name="ExportStrata" displayName="Strata"/>
+	  <item name="LibraryConfig" displayName="Library"/>
+	</group>
   </layout>
 
   <updateProvider
