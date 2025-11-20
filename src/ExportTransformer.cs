@@ -14,98 +14,83 @@ namespace LandFireVegModels
 {
     class ExportTransformer : Transformer
     {
-        public override void Configure()
+        public override void Transform()
         {
-            base.Configure();
+            DataSheet exportLibraryPathDataSheet = this.Scenario.GetDataSheet("landfirevegmodels_ExportLibraryPath");
+            DataRow exportLibraryPath = exportLibraryPathDataSheet.GetData().Rows[0];
+            string exportLibraryFilePath = 
+                object.ReferenceEquals(exportLibraryPath["Path"], DBNull.Value) 
+                ? null 
+                : Convert.ToString(exportLibraryPath["Path"], CultureInfo.InvariantCulture);
 
-            Debug.Assert(
-                this.Session.GetType() == typeof(Session) ||
-                this.Session.GetType() == typeof(WinFormSession));
-
-            if (typeof(WinFormSession).IsAssignableFrom(this.Session.GetType()))
-            {
-                WinFormSession wfs = (WinFormSession)this.Session;
-                //wfs.MainMenuLoaded += this.OnMainMenuLoaded;
-            }
+            this.CreateLibraryFromStrata(
+                this.Library,
+                exportLibraryFilePath,
+                GetSelectedStratumIds());
         }
 
-        //private void OnMainMenuLoaded(object sender, EventArgs e)
-        //{
-        //    WinFormSession wfs = (WinFormSession)this.Session;
-        //    CommandCollection cmds = wfs.Application.GetMenuCommands();
-        //    Command EditCommand = Command.FindCommand("ssim_edit_menu", cmds);
-        //    Debug.Assert(EditCommand != null);
-
-        //    if (EditCommand != null)
-        //    {
-        //        EditCommand.Commands.Add(Command.CreateSeparatorCommand());
-
-        //        Command LFVMExportStrataCmd = new Command(
-        //            "export-lfvm-strata", 
-        //            "Export LFVM Strata", 
-        //            OnExecuteExportStrata, 
-        //            OnUpdateExportStrata);
-
-        //        EditCommand.Commands.Add(LFVMExportStrataCmd);
-        //    }
-        //}
-
-        //private void OnUpdateExportStrata(Command cmd)
-        //{
-        //    cmd.IsEnabled = false;
-        //    WinFormSession wfs = (WinFormSession)this.Session;
-        //    Library lib = wfs.Application.GetSelectedLibrary();
-
-        //    if (lib != null)
-        //    {
-        //        string ptn = lib.GetPrimaryTransformerName();
-        //        cmd.IsEnabled = (ptn == "landfirevegmodels_landfirevegmodels");
-        //    }
-        //}
-
-        private static Project GetProject(Library library)
+        private List<int> GetSelectedStratumIds()
         {
-            if (library == null)
+            List<int> Ids = new List<int>();
+
+            DataSheet exportStrataDataSheet = this.Scenario.GetDataSheet("landfirevegmodels_ExportStrata");
+
+            foreach (DataRow dr in exportStrataDataSheet.GetData().Rows)
             {
-                Debug.Assert(false);
-                return null;
+                Ids.Add(Convert.ToInt32(dr["StratumID"]));
             }
 
-            int c = 0;
-            Project Proj = null;
-
-            foreach (Project p in library.Projects)
+            if(Ids.Count == 0)
             {
-                if (!p.IsDeleted)
-                {
-                    if (Proj == null)
-                    {
-                        Proj = p;
-                    }
-
-                    c++;
-                }
+                throw new TransformerCanceledException("At least one stratum needs to be selected for export.");
             }
 
-            if (c == 0)
-            {
-                Shared.ShowMessageBox(
-                    "The Export Strata feature is only available for Libraries with at least one Project.",
-                    MessageBoxButtons.OK);
-
-                return null;
-            }
-            else if (c > 1)
-            {
-                Shared.ShowMessageBox(
-                    "The Export Strata feature is only available for Libraries with a single Project.",
-                    MessageBoxButtons.OK);
-
-                return null;
-            }
-
-            return Proj;
+            return Ids;
         }
+
+        //private static Project GetProject(Library library)
+        //{
+        //    if (library == null)
+        //    {
+        //        Debug.Assert(false);
+        //        return null;
+        //    }
+
+        //    int c = 0;
+        //    Project Proj = null;
+
+        //    foreach (Project p in library.Projects)
+        //    {
+        //        if (!p.IsDeleted)
+        //        {
+        //            if (Proj == null)
+        //            {
+        //                Proj = p;
+        //            }
+
+        //            c++;
+        //        }
+        //    }
+
+        //    if (c == 0)
+        //    {
+        //        Shared.ShowMessageBox(
+        //            "The Export Strata feature is only available for Libraries with at least one Project.",
+        //            MessageBoxButtons.OK);
+
+        //        return null;
+        //    }
+        //    else if (c > 1)
+        //    {
+        //        Shared.ShowMessageBox(
+        //            "The Export Strata feature is only available for Libraries with a single Project.",
+        //            MessageBoxButtons.OK);
+
+        //        return null;
+        //    }
+
+        //    return Proj;
+        //}
 
         //private void OnExecuteExportStrata(Command cmd)
         //{
@@ -145,7 +130,7 @@ namespace LandFireVegModels
         //        //Open
         //        wfs.Application.OpenLibrary(f.FileName);
         //    }
-        //    catch(Exception ex)
+        //    catch (Exception ex)
         //    {
         //        string msg =
         //            "Cannot create a Library.  More information:" +

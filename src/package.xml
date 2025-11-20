@@ -68,8 +68,18 @@
 		<dataSheet name="ExportStrata"/>
 		<dataSheet name="ExportLibraryPath"/>
 	</dataFeed>
-	
-  <transformer name="Export" displayName="Export landfire vegetation model Strata" className="LandFireVegModels.ExportTransformer" classAssembly="LandFireVegModels"/>
+
+	<transformer
+		name="Export"
+		displayName="Export landfire vegetation model strata"
+		className="LandFireVegModels.ExportTransformer"
+		classAssembly="LandFireVegModels"
+		isPipeline="True">
+		<dataSheet name="ExportStrata" type="Both"/>
+		<dataSheet name="ExportLibraryPath" type="Both"/>
+		<dataSheet name="SuccessionClassDescription" type="Input"/>
+		<dataSheet name="SuccessionClassMappingRule" type="Input"/>
+	</transformer>
 
   <layout type="Project">
     <item name="UpperLayerLifeform" displayName="Upper Layer Lifeform"/>
