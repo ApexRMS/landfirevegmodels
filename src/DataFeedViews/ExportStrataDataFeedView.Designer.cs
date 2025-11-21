@@ -38,6 +38,7 @@
             // 
             // ExportStrataPanel
             // 
+            this.ExportStrataPanel.AutoSize = true;
             this.ExportStrataPanel.Location = new System.Drawing.Point(3, 69);
             this.ExportStrataPanel.Name = "ExportStrataPanel";
             this.ExportStrataPanel.Size = new System.Drawing.Size(919, 393);
@@ -51,6 +52,7 @@
             // 
             this.ExportPathTextBox.Location = new System.Drawing.Point(3, 29);
             this.ExportPathTextBox.Name = "ExportPathTextBox";
+            this.ExportPathTextBox.ReadOnly = true;
             this.ExportPathTextBox.Size = new System.Drawing.Size(737, 20);
             this.ExportPathTextBox.TabIndex = 1;
             // 
@@ -87,6 +89,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.ExportPathLabel);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.BrowseButton);
