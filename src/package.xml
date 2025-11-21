@@ -56,7 +56,6 @@
 
 	<dataSheet name="ExportStrata" dataScope="Scenario">
 		<column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel"/>
-	  <column name="Description" dataType="String" displayName="Description" isReadOnly="True"/>
 	  <validation validationType="UniqueOrNull" columns="StratumId"/>
   </dataSheet>
 
