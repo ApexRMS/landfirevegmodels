@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<package name="landfirevegmodels" displayName="LANDFIRE vegetation models" version="2.0.0" minSyncroSimVersion="3.1.24" url="https://apexrms.github.io/landfirevegmodels/">
+<package name="landfirevegmodels" displayName="LANDFIRE vegetation models" version="2.0.0" minSyncroSimVersion="3.1.22" url="https://apexrms.github.io/landfirevegmodels/">
 
   <builtFor package="stsim" version="4.5.3"/>
 	
