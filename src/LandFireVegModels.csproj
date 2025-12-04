@@ -85,12 +85,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <!-- <Compile Include="ExportStrataForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ExportStrataForm.Designer.cs">
-      <DependentUpon>ExportStrataForm.cs</DependentUpon>
-    </Compile> -->
     <Compile Include="DataFeedViews\ExportStrataDataFeedView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -105,22 +99,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ExportTransformer.cs" />
-    <Compile Include="Shared.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\Search16x16.png" />
     <Content Include="package.xml" />
-    <Content Include="Templates\Current-Example-Models.png" />
-    <Content Include="Templates\Current-Example-Models.xml" />
-    <Content Include="Templates\Reference-Condition-Models.png" />
-    <Content Include="Templates\Reference-Condition-Models.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DataFeedViews\ExportStrataDataFeedView.resx">
       <DependentUpon>ExportStrataDataFeedView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExportStrataForm.resx">
-      <DependentUpon>ExportStrataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
