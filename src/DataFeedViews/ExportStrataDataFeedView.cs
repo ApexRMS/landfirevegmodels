@@ -26,8 +26,11 @@ namespace LandFireVegModels
 
             this.SetTextBoxBinding(this.ExportPathTextBox, "landfirevegmodels_ExportLibraryPath", "Path");
 
-            DataFeedView v = (DataFeedView)this.ExportStrataPanel.Controls[0];
-            v.LoadDataFeed(dataFeed, "landfirevegmodels_ExportStrata");
+            if (this.ExportStrataPanel.Controls.Count > 0)
+            {
+                DataFeedView v = (DataFeedView)this.ExportStrataPanel.Controls[0];
+                v.LoadDataFeed(dataFeed, "landfirevegmodels_ExportStrata");
+            }
 
             this.RefreshBoundControls();
         }
@@ -43,7 +46,7 @@ namespace LandFireVegModels
 
         private void BrowseButton_Click(object sender, EventArgs e)
         {
-            if(this.ExportPathSelectionDialog.ShowDialog(this) != DialogResult.OK)
+            if (this.ExportPathSelectionDialog.ShowDialog(this) != DialogResult.OK)
             {
                 return;
             }

@@ -15,11 +15,16 @@ namespace LandFireVegModels
         public override void Transform()
         {
             DataSheet exportLibraryPathDataSheet = this.Scenario.GetDataSheet("landfirevegmodels_ExportLibraryPath");
-            DataRow exportLibraryPath = exportLibraryPathDataSheet.GetData().Rows[0];
-            string exportLibraryFilePath = 
-                object.ReferenceEquals(exportLibraryPath["Path"], DBNull.Value) 
-                ? null 
-                : Convert.ToString(exportLibraryPath["Path"], CultureInfo.InvariantCulture);
+            DataTable exportLibraryPathTable = exportLibraryPathDataSheet.GetData();
+            if (exportLibraryPathTable.Rows.Count == 0 ||
+                object.ReferenceEquals(exportLibraryPathTable.Rows[0]["Path"], DBNull.Value))
+            {
+                throw new TransformerCanceledException(
+                "An output library path must be specified before running the Export transformer.");
+            }
+
+            string exportLibraryFilePath =
+            Convert.ToString(exportLibraryPathTable.Rows[0]["Path"], CultureInfo.InvariantCulture);
 
             this.CreateLibraryFromStrata(
                 this.Library,
@@ -38,7 +43,7 @@ namespace LandFireVegModels
                 Ids.Add(Convert.ToInt32(dr["StratumID"]));
             }
 
-            if(Ids.Count == 0)
+            if (Ids.Count == 0)
             {
                 throw new TransformerCanceledException("At least one stratum needs to be selected for export.");
             }
@@ -47,8 +52,8 @@ namespace LandFireVegModels
         }
 
         private void CreateLibraryFromStrata(
-            Library sourceLibrary, 
-            string targetFileName, 
+            Library sourceLibrary,
+            string targetFileName,
             List<int> keepStratumIds)
         {
             CreateTargetLibrary(sourceLibrary, targetFileName);
@@ -93,7 +98,8 @@ namespace LandFireVegModels
                     }
 
                     string Title = Path.GetFileNameWithoutExtension(targetFileName);
-                    string q = string.Format(CultureInfo.InvariantCulture, "UPDATE core_Library SET Name='{0}'", Title);
+                    string EscapedTitle = Title.Replace("'", "''");
+                    string q = string.Format(CultureInfo.InvariantCulture, "UPDATE core_Library SET Name='{0}'", EscapedTitle);
 
                     store.ExecuteNonQuery(q);
                 }
@@ -115,9 +121,9 @@ namespace LandFireVegModels
         }
 
         private static void PurgeStratumIds(
-            string tableName, 
-            string columnName, 
-            string keepStratumIds, 
+            string tableName,
+            string columnName,
+            string keepStratumIds,
             DataStore store)
         {
             string q = string.Format(CultureInfo.InvariantCulture,
@@ -140,7 +146,7 @@ namespace LandFireVegModels
 
         private static bool ShouldProcessTable(string tableName)
         {
-            if (!tableName.StartsWith("stsim_") && 
+            if (!tableName.StartsWith("stsim_") &&
                 !tableName.StartsWith("landfirevegmodels_"))
             {
                 return false;
