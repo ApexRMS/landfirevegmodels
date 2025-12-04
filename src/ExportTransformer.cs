@@ -6,7 +6,6 @@ using System.Text;
 using System.Globalization;
 using System.Collections.Generic;
 using SyncroSim.Core;
-using SyncroSim.Core.Forms;
 
 namespace LandFireVegModels
 {
@@ -58,7 +57,6 @@ namespace LandFireVegModels
         {
             CreateTargetLibrary(sourceLibrary, targetFileName);
 
-            WinFormSession wfs = (WinFormSession)this.Session;
             string KeepStratumIdString = CreateKeepStratumIdString(keepStratumIds);
             DataStoreConnection conn = new DataStoreConnection("SQLite", targetFileName);
 
