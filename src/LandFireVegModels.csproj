@@ -68,10 +68,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SyncroSim.Core">
-      <HintPath>..\..\ssimbin\SyncroSim.Core.dll</HintPath>
+      <HintPath>..\..\ssimbin3\SyncroSim.Core.dll</HintPath>
     </Reference>
     <Reference Include="SyncroSim.Core.Forms">
-      <HintPath>..\..\ssimbin\SyncroSim.Core.Forms.dll</HintPath>
+      <HintPath>..\..\ssimbin3\SyncroSim.Core.Forms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -85,32 +85,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExportStrataForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="DataFeedViews\ExportStrataDataFeedView.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ExportStrataForm.Designer.cs">
-      <DependentUpon>ExportStrataForm.cs</DependentUpon>
+    <Compile Include="DataFeedViews\ExportStrataDataFeedView.Designer.cs">
+      <DependentUpon>ExportStrataDataFeedView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Updates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SessionTransformer.cs" />
-    <Compile Include="Shared.cs" />
+    <Compile Include="ExportTransformer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\Search16x16.png" />
     <Content Include="package.xml" />
-    <Content Include="Templates\Current-Example-Models.png" />
-    <Content Include="Templates\Current-Example-Models.xml" />
-    <Content Include="Templates\Reference-Condition-Models.png" />
-    <Content Include="Templates\Reference-Condition-Models.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ExportStrataForm.resx">
-      <DependentUpon>ExportStrataForm.cs</DependentUpon>
+    <EmbeddedResource Include="DataFeedViews\ExportStrataDataFeedView.resx">
+      <DependentUpon>ExportStrataDataFeedView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

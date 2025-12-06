@@ -1,314 +1,103 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<package name="landfirevegmodels" displayName="LANDFIRE vegetation models" version="1.1.3" url="https://apexrms.github.io/landfirevegmodels/">
-  <transformers>
-    <transformer name="landfirevegmodels" displayName="Landfire vegetation models" isPrimary="True">
-      <runtime>
-        <transformer name="stsim_Primary"/>
-      </runtime>
-      <datafeeds>
-        <datafeed
-          name="UpperLayerLifeform"
-          displayName="Upper Layer Lifeform"
-          dataScope="Project">
-          <datasheets>
-            <datasheet name="UpperLayerLifeform" shortName="Lifeform" dislplayName="Upper Layer Lifeform" valueMember="UpperLayerLifeformID" displayMember="Name">
-              <columns>
-                <column name="UpperLayerLifeformID" dataType="Integer" isPrimary="True"/>
-                <column name="ProjectID" dataType="Integer"/>
-                <column name="Name" dataType="String" fillWeight="10"/>
-                <column name="Description" dataType="String" isOptional="True"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-        <datafeed
-          name="LeafForm"
-          displayName="Leaf Form"
-          dataScope="Project">
-          <datasheets>
-            <datasheet name="LeafForm" shortName="LeafForm" dislplayName="Leaf Form" valueMember="LeafFormID" displayMember="Name">
-              <columns>
-                <column name="LeafFormID" dataType="Integer" isPrimary="True"/>
-                <column name="ProjectID" dataType="Integer"/>
-                <column name="Name" dataType="String" fillWeight="10"/>
-                <column name="Description" dataType="String" isOptional="True"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-        <datafeed
-          name="Composition"
-          displayName="Composition"
-          dataScope="Project">
-          <datasheets>
-            <datasheet name="Composition" shortName="Composition" dislplayName="Composition" valueMember="CompositionID" displayMember="Name">
-              <columns>
-                <column name="CompositionID" dataType="Integer" isPrimary="True"/>
-                <column name="ProjectID" dataType="Integer"/>
-                <column name="Name" dataType="String" fillWeight="10"/>
-                <column name="Description" dataType="String" isOptional="True"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-        <datafeed
-            name="HeightClass"
-            displayName="Height Class"
-            dataScope="Project">
-          <datasheets>
-            <datasheet name="HeightClass" dislplayName="Height Class" valueMember="HeightClassID" displayMember="Name">
-              <columns>
-                <column name="HeightClassID" dataType="Integer" isPrimary="True"/>
-                <column name="ProjectID" dataType="Integer"/>
-                <column name="Name" dataType="String" fillWeight="10"/>
-                <column name="Description" dataType="String" isOptional="True"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-        <datafeed
-          name="ClassLabel"
-          displayName="Class Label"
-          dataScope="Project">
-          <datasheets>
-            <datasheet name="ClassLabel" dislplayName="Class Label" valueMember="ClassLabelID" displayMember="Name">
-              <columns>
-                <column name="ClassLabelID" dataType="Integer" isPrimary="True"/>
-                <column name="ProjectID" dataType="Integer"/>
-                <column name="Name" dataType="String" fillWeight="10"/>
-                <column name="Description" dataType="String" isOptional="True"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-        <datafeed
-          name="SuccessionClassDescription"
-          displayName="Succcession Class Descriptions"
-          dataScope="Scenario">
-          <datasheets>
-            <datasheet name="SuccessionClassDescription" dislplayName="Succession Class Descriptions" allowTextWrap="True">
-              <columns>
-                <column name="SucccessionClassDescriptionID" dataType="Integer" isPrimary="True"/>
-                <column name="ScenarioID" dataType="Integer"/>
-                <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel" fillWeight="10"/>
-                <column name="ClassLabelID" dataType="Integer" displayName="SClass Label" validationType="Datasheet" formula1="ClassLabel" fillWeight="10"/>
-                <column name="StateClassID" dataType="Integer" displayName="State Class" validationType="Datasheet" formula1="stsim_StateClass" allowDbNull="False" fillWeight="10"/>
-                <column name="Description" dataType="String" fillWeight="70"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-        <datafeed
-          name="SuccessionClassMappingRule"
-          displayName="Succcession Class Mapping Rules"
-          dataScope="Scenario">
-          <datasheets>
-            <datasheet name="SuccessionClassMappingRule" dislplayName="Succession Class Mapping Rules" filterColumns="StratumID">
-              <columns>
-                <column name="SuccessionClassMappingRuleID" dataType="Integer" isPrimary="True"/>
-                <column name="ScenarioID" dataType="Integer"/>
-                <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel"/>
-                <column name="UpperLayerLifeformID" dataType="Integer" displayName="Upper Layer Lifeform" validationType="Datasheet" formula1="UpperLayerLifeform" allowDbNull="False"/>
-                <column name="LeafFormID" dataType="Integer" displayName="Leaf Form" validationType="Datasheet" formula1="LeafForm" allowDbNull="True"/>
-                <column name="CompositionID" dataType="Integer" displayName="Composition" validationType="Datasheet" formula1="Composition" allowDbNull="True"/>
-                <column name="HeightClassID" dataType="Integer" displayName="Height Class (m)" validationType="Datasheet" formula1="HeightClass" allowDbNull="False"/>
-                <column name="ClassLabel0to10" dataType="Integer" displayName="0-10%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel10to20" dataType="Integer" displayName="10-20%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel20to30" dataType="Integer" displayName="20-30%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel30to40" dataType="Integer" displayName="30-40%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel40to50" dataType="Integer" displayName="40-50%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel50to60" dataType="Integer" displayName="50-60%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel60to70" dataType="Integer" displayName="60-70%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel70to80" dataType="Integer" displayName="70-80%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel80to90" dataType="Integer" displayName="80-90%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="ClassLabel90t100" dataType="Integer" displayName="90-100%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
-                <column name="AdditionalRules" displayName="Additional rules" dataType="String"/>
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-      </datafeeds>
-    </transformer>
-    <transformer
-      name="Session"
-      isSession="True"
-      className="LandFireVegModels.SessionTransformer"
-      classAssembly="LandFireVegModels">
-    </transformer>
-  </transformers>
-  <layouts>
-    <layout name="coreforms_ResultTransformers">
-      <item name="corestime_ChartTransformer"/>
-      <item name="corestime_MapTransformer"/>
-      <group name="Export">
-        <group name="Reports">
-          <item name="stsim_StateClassSummaryReport"/>
-          <item name="stsim_TransitionSummaryReport"/>
-          <item name="stsim_TransitionStateSummaryReport"/>
-          <item name="stsim_TSTReport"/>
-          <item name="stsim_StateAttributeReport"/>
-          <item name="stsim_TransitionAttributeReport"/>
-          <item name="coreforms_ScenarioDescriptionReport"/>
-        </group>
-        <group name="Maps">
-          <group name="stsim_StateClasses" displayName="State Classes">
-            <item name="stsim_StateClassRasterMap" displayName="Iteration"/>
-            <item name="stsim_AverageStateClassRasterMap" displayName="Average"/>
-          </group>
-          <group name="Ages">
-            <item name="stsim_AgeRasterMap" displayName="Iteration"/>
-            <item name="stsim_AverageAgeRasterMap" displayName="Average"/>
-          </group>
-          <group name="PrimaryStrata" displayName="Primary Strata">
-            <item name="stsim_StratumRasterMap" displayName="Iteration"/>
-            <item name="stsim_AverageStratumRasterMap" displayName="Average"/>
-          </group>
-          <group name="Transitions">
-            <item name="stsim_TransitionRasterMap" displayName="Iteration"/>
-            <item name="stsim_AverageTransitionProbabilityRasterMap" displayName="Average"/>
-            <item name="stsim_TransitionEventRasterMap" displayName="Iteration - Events"/>
-            <item name="stsim_TSTRasterMap"/>
-            <item name="stsim_AverageTSTRasterMap"/>
-          </group>"
-          <group name="StateAttributes" displayName="State Attributes">
-            <item name="stsim_StateAttributeRasterMap" displayName="Iteration"/>
-            <item name="stsim_AverageStateAttributeRasterMap" displayName="Average"/>
-          </group>
-          <group name="TransitionAttributes" displayName="Transition Attributes">
-            <item name="stsim_TransitionAttributeRasterMap" displayName="Iteration"/>
-            <item name="stsim_AverageTransitionAttributeRasterMap" displayName="Average"/>
-          </group>
-        </group>
-      </group>
-    </layout>
-    <layout name="coreforms_LibraryDatafeeds">
-      <item name="core_SysFolder"/>
-      <item name="core_Backup"/>
-      <group name="Multiprocessing">
-        <item name="core_Multiprocessing" displayName="General"/>
-        <item name="core_ProcessorGroup"/>
-      </group>
-      <item name="corestime_Options" displayName="Spatial"/>
-      <group name="Options">
-        <item name="core_Options" displayName="General"/>
-        <item name="core_Rconfig"/>
-      </group>
-    </layout>
-    <layout name="coreforms_ProjectDatafeeds">
-      <group name="Strata">
-        <item name="stsim_Stratum"/>
-        <item name="stsim_SecondaryStratum"/>
-        <item name="stsim_TertiaryStratum"/>
-      </group>
-      <group name="States">
-        <item name="stsim_StateLabelX"/>
-        <item name="stsim_StateLabelY"/>
-        <item name="stsim_StateClass"/>
-      </group>
-      <group name="Transitions">
-        <item name="stsim_TransitionType"/>
-        <item name="stsim_TransitionGroup"/>
-        <item name="stsim_TransitionTypeGroup"/>
-        <group name="Advanced">
-          <item name="stsim_TransitionSimulationGroup"/>
-          <item name="stsim_TransitionMultiplierType"/>
-        </group>
-      </group>
-      <group name="Ages">
-        <item name="stsim_AgeType"/>
-        <item name="stsim_AgeGroup"/>
-      </group>
-      <group name="Landfire">
-        <item name="UpperLayerLifeform"/>
-        <item name="LeafForm"/>
-        <item name="Composition"/>
-        <item name="HeightClass"/>
-        <item name="ClassLabel"/>
-      </group>
-      <group name="Advanced">
-        <group name="Attributes">
-          <item name="stsim_AttributeGroup"/>
-          <item name="stsim_StateAttributeType"/>
-          <item name="stsim_TransitionAttributeType"/>
-        </group>
-        <group name="TST" displayName="Time-Since-Transition">
-          <item name="stsim_TSTType"/>
-          <item name="stsim_TSTGroup"/>
-        </group>
-        <item name="corestime_DistributionType"/>
-        <item name="corestime_ExternalVariableType"/>
-        <item name="stsim_SizeClass"/>
-        <item name="core_AutoGenTag"/>
-      </group>
-      <item name="stsim_Terminology"/>
-    </layout>
-    <layout name="coreforms_ScenarioDatafeeds">
-      <item name="stsim_RunControl"/>
-      <item name="stsim_Transition" displayName="Transition Pathways"/>
-      <group name="STSimInitialConditionsGroup" displayName="Initial Conditions">
-        <item name="stsim_InitialConditionsNonSpatial" displayName="Non Spatial"/>
-        <item name="stsim_InitialConditionsSpatial" displayName="Spatial"/>
-        <item name="stsim_TimeSinceTransitionRandomize"/>
-        <item name="stsim_InitialTSTSpatial"/>
-      </group>
-      <item name="stsim_TransitionTarget"/>
-      <group name="OutputOptions" displayName="Output Options">
-        <item name="stsim_OutputOptions" displayName="Tabular"/>
-        <item name="stsim_OutputOptionsSpatial" displayName="Spatial"/>
-        <item name="stsim_OutputOptionsSpatialAverage" displayName="Spatial Average"/>
-      </group>
-      <group name="LandfireGroup" displayName="Landfire">
-        <item name="SuccessionClassDescription"/>
-        <item name="SuccessionClassMappingRule"/>
-      </group>
-      <group name="Advanced">
-        <item name="stsim_TransitionMultiplierValue" displayName="Transitions - Multipliers"/>
-        <group name="STSimTransitionsSpatialGroup" displayName="Transitions - Spatial">
-          <group name="STSimTransitionSizeGroup" displayName="Transition Size">
-            <item name="stsim_TransitionSizeDistribution"/>
-            <item name="stsim_TransitionSizePrioritization"/>
-          </group>
-          <item name="stsim_TransitionSpreadDistribution"/>
-          <item name="stsim_TransitionPatchPrioritization"/>
-          <item name="stsim_TransitionSpatialMultiplier"/>
-          <item name="stsim_TransitionSpatialInitiationMultiplier"/>
-          <item name="stsim_TransitionDirectionMultiplier"/>
-          <item name="stsim_TransitionSlopeMultiplier"/>
-          <item name="stsim_TransitionAdjacencyMultiplier"/>
-          <item name="stsim_TransitionPathwayAutoCorrelation"/>
-        </group>
-        <item name="stsim_TransitionOrder" displayName="Transitions - Order"/>
-        <item name="stsim_TransitionTargetPrioritization" displayName="Transitions - Target Prioritization"/>
-        <item name="stsim_TimeSinceTransitionGroup"/>       
-        <group name="Attributes">
-          <item name="stsim_StateAttributeValue"/>
-          <item name="stsim_TransitionAttributeValue"/>
-          <item name="stsim_TransitionAttributeTarget"/>
-          <item name="stsim_TransitionAttributeTargetPrioritization" displayName="Attribute Target Prioritization"/>
-        </group>
-        <item name="stsim_DistributionValue"/>
-        <item name="corestime_ExternalVariableValue"/>
-        <group name="Multiprocessing">
-          <item name="stsim_Multiprocessing"/>
-          <item name="corestime_Multiprocessing"/>
-        </group>
-        <item name="corestime_External" displayName="External Program"/>
-        <item name="core_AutoGenTagValue"/>
-      </group>
-    </layout>
-    <layout name="coreforms_ScenarioDatafeedsLite">
-      <item name="stsim_RunControl"/>
-      <item name="stsim_TransitionTarget"/>
-    </layout>
-    <layout name="corestimeforms_Charts"
-      configurationSheet="stsim_RunControl"
-      className="SyncroSim.STSim.STSimChartProvider"
-      classAssembly="SyncroSim.STSim">
-    </layout>
-    <layout name="corestimeforms_Maps"
-      configurationSheet="stsim_RunControl"
-      className="SyncroSim.STSim.STSimMapProvider"
-      classAssembly="SyncroSim.STSim">
-    </layout>
-  </layouts>
+<package name="landfirevegmodels" displayName="LANDFIRE vegetation models" version="2.0.0" minSyncroSimVersion="3.1.22" url="https://apexrms.github.io/landfirevegmodels/">
+
+  <builtFor package="stsim" version="4.5.3"/>
+	
+  <dataSheet name="UpperLayerLifeform" shortName="Lifeform" displayName="Upper Layer Lifeform" dataScope="Project" valueMember="UpperLayerLifeformID" displayMember="Name">
+    <column name="Name" dataType="String" fillWeight="10"/>
+    <column name="Description" dataType="String" isOptional="True"/>
+  </dataSheet>
+
+  <dataSheet name="LeafForm" shortName="LeafForm" displayName="Leaf Form" dataScope="Project" valueMember="LeafFormID" displayMember="Name">
+    <column name="Name" dataType="String" fillWeight="10"/>
+    <column name="Description" dataType="String" isOptional="True"/>
+  </dataSheet>
+
+  <dataSheet name="Composition" shortName="Composition" displayName="Composition" dataScope="Project" valueMember="CompositionID" displayMember="Name">
+    <column name="Name" dataType="String" fillWeight="10"/>
+    <column name="Description" dataType="String" isOptional="True"/>
+  </dataSheet>
+
+  <dataSheet name="HeightClass" displayName="Height Class" dataScope="Project" valueMember="HeightClassID" displayMember="Name">
+    <column name="Name" dataType="String" fillWeight="10"/>
+    <column name="Description" dataType="String" isOptional="True"/>
+  </dataSheet>
+
+  <dataSheet name="ClassLabel" displayName="Class Label" dataScope="Project" valueMember="ClassLabelID" displayMember="Name">
+    <column name="Name" dataType="String" fillWeight="10"/>
+    <column name="Description" dataType="String" isOptional="True"/>
+  </dataSheet>
+
+  <dataSheet name="SuccessionClassDescription" displayName="Succession Class Descriptions" dataScope="Scenario" allowTextWrap="True">
+    <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel" fillWeight="10"/>
+    <column name="ClassLabelID" dataType="Integer" displayName="SClass Label" validationType="Datasheet" formula1="ClassLabel" fillWeight="10"/>
+    <column name="StateClassID" dataType="Integer" displayName="State Class" validationType="Datasheet" formula1="stsim_StateClass" allowDbNull="False" fillWeight="10"/>
+    <column name="Description" dataType="String" fillWeight="70"/>
+  </dataSheet>
+
+  <dataSheet name="SuccessionClassMappingRule" displayName="Succession Class Mapping Rules" dataScope="Scenario" filterColumns="StratumID">
+    <column name="StratumID" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel"/>
+    <column name="UpperLayerLifeformID" dataType="Integer" displayName="Upper Layer Lifeform" validationType="Datasheet" formula1="UpperLayerLifeform" allowDbNull="False"/>
+    <column name="LeafFormID" dataType="Integer" displayName="Leaf Form" validationType="Datasheet" formula1="LeafForm" allowDbNull="True"/>
+    <column name="CompositionID" dataType="Integer" displayName="Composition" validationType="Datasheet" formula1="Composition" allowDbNull="True"/>
+    <column name="HeightClassID" dataType="Integer" displayName="Height Class (m)" validationType="Datasheet" formula1="HeightClass" allowDbNull="False"/>
+    <column name="ClassLabel0to10" dataType="Integer" displayName="0-10%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel10to20" dataType="Integer" displayName="10-20%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel20to30" dataType="Integer" displayName="20-30%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel30to40" dataType="Integer" displayName="30-40%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel40to50" dataType="Integer" displayName="40-50%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel50to60" dataType="Integer" displayName="50-60%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel60to70" dataType="Integer" displayName="60-70%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel70to80" dataType="Integer" displayName="70-80%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel80to90" dataType="Integer" displayName="80-90%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="ClassLabel90t100" dataType="Integer" displayName="90-100%" validationType="Datasheet" formula1="ClassLabel" allowDbNull="False"/>
+    <column name="AdditionalRules" displayName="Additional rules" dataType="String"/>
+  </dataSheet>
+
+	<dataSheet name="ExportStrata" dataScope="Scenario">
+		<column name="StratumId" dataType="Integer" displayName="Stratum" validationType="Datasheet" formula1="stsim_Stratum" displayNameSource="stsim_Terminology" displayNameColumn="PrimaryStratumLabel"/>
+	  <validation validationType="UniqueOrNull" columns="StratumId"/>
+  </dataSheet>
+
+	<dataSheet name="ExportLibraryPath" dataScope="Scenario" isSingleRow="True">
+		<column name="Path" dataType="String" displayName="Output Library Path" externalFileAbsolute="True" allowDbNull="False"/>
+	</dataSheet>
+
+	<dataFeed name="ExportDataFeed" displayName="Export Configuration" viewClassName="LandFireVegModels.ExportStrataDataFeedView" viewClassAssembly="LandFireVegModels">
+		<dataSheet name="ExportStrata"/>
+		<dataSheet name="ExportLibraryPath"/>
+	</dataFeed>
+
+	<transformer
+		name="Export"
+		displayName="Export landfire vegetation model strata"
+		className="LandFireVegModels.ExportTransformer"
+		classAssembly="LandFireVegModels"
+		isPipeline="True">
+		<dataSheet name="ExportStrata" type="Both"/>
+		<dataSheet name="ExportLibraryPath" type="Both"/>
+		<dataSheet name="SuccessionClassDescription" type="Input"/>
+		<dataSheet name="SuccessionClassMappingRule" type="Input"/>
+	</transformer>
+
+  <layout type="Project">
+    <item name="UpperLayerLifeform" displayName="Upper Layer Lifeform"/>
+	  <item name="LeafForm" displayName="Leaf Form"/>
+	  <item name="Composition" displayName="Composition"/>
+	  <item name="HeightClass" displayName="Height Class"/>
+	  <item name="ClassLabel" displayName="Class Label"/>
+  </layout>
+
+  <layout type="Scenario">
+		<item name="ExportDataFeed" displayName="Export Configuration"/>
+		<group name="SuccessionClassGroup" displayName="Succession Classes">
+			<item name="SuccessionClassDescription" displayName="Succession Class Description"/>
+			<item name="SuccessionClassMappingRule" displayName="Succession Class Mapping Rule"/>
+		</group>
+	</layout>
+
+  <updateProvider
+    className="LandFireVegModels.Updates"
+    classAssembly="LandFireVegModels">
+  </updateProvider>
 </package>
