@@ -18,46 +18,24 @@ namespace LandFireVegModels
             if (exportLibraryPathTable.Rows.Count == 0 ||
                 object.ReferenceEquals(exportLibraryPathTable.Rows[0]["Path"], DBNull.Value))
             {
-                throw new TransformerCanceledException(
-                "An output library path must be specified before running the Export transformer.");
+                throw new TransformerCanceledException("An output library path must be specified before running the Export transformer.");
             }
 
-            string exportLibraryFilePath =
-            Convert.ToString(exportLibraryPathTable.Rows[0]["Path"], CultureInfo.InvariantCulture);
+            string exportLibraryFilePath = Convert.ToString(exportLibraryPathTable.Rows[0]["Path"], CultureInfo.InvariantCulture);
 
-            this.CreateLibraryFromStrata(
-                this.Library,
-                exportLibraryFilePath,
-                GetSelectedStratumIds());
+            if (File.Exists(exportLibraryFilePath))
+            {
+                throw new TransformerCanceledException("The specified output library already exists. Please choose a different file name.");
+            }
+
+            this.CreateLibraryFromStrata(exportLibraryFilePath);
         }
 
-        private List<int> GetSelectedStratumIds()
+        private void CreateLibraryFromStrata(string targetFileName)
         {
-            List<int> Ids = new List<int>();
+            File.Copy(this.Library.Connection.ConnectionString, targetFileName);
 
-            DataSheet exportStrataDataSheet = this.Scenario.GetDataSheet("landfirevegmodels_ExportStrata");
-
-            foreach (DataRow dr in exportStrataDataSheet.GetData().Rows)
-            {
-                Ids.Add(Convert.ToInt32(dr["StratumID"]));
-            }
-
-            if (Ids.Count == 0)
-            {
-                throw new TransformerCanceledException("At least one stratum needs to be selected for export.");
-            }
-
-            return Ids;
-        }
-
-        private void CreateLibraryFromStrata(
-            Library sourceLibrary,
-            string targetFileName,
-            List<int> keepStratumIds)
-        {
-            CreateTargetLibrary(sourceLibrary, targetFileName);
-
-            string KeepStratumIdString = CreateKeepStratumIdString(keepStratumIds);
+            string KeepStratumIdString = CreateKeepStratumIdString();
             DataStoreConnection conn = new DataStoreConnection("SQLite", targetFileName);
 
             using (SyncroSimTransactionScope scope = Session.CreateTransactionScope())
@@ -106,18 +84,6 @@ namespace LandFireVegModels
             }
         }
 
-        private static void CreateTargetLibrary(Library sourceLibrary, string targetFileName)
-        {
-            if (File.Exists(targetFileName))
-            {
-                File.Delete(targetFileName);
-            }
-
-            File.Copy(
-                sourceLibrary.Connection.ConnectionString,
-                targetFileName);
-        }
-
         private static void PurgeStratumIds(
             string tableName,
             string columnName,
@@ -153,13 +119,19 @@ namespace LandFireVegModels
             return true;
         }
 
-        private string CreateKeepStratumIdString(List<int> stratumIds)
+        private string CreateKeepStratumIdString()
         {
+            DataSheet exportStrataDataSheet = this.Scenario.GetDataSheet("landfirevegmodels_ExportStrata");
             StringBuilder sb = new StringBuilder();
 
-            foreach (int id in stratumIds)
+            foreach (DataRow dr in exportStrataDataSheet.GetData().Rows)
             {
-                sb.AppendFormat(CultureInfo.InvariantCulture, "{0},", id);
+                sb.AppendFormat(CultureInfo.InvariantCulture, "{0},", Convert.ToInt32(dr["StratumID"]));
+            }
+
+            if (sb.Length == 0)
+            {
+                throw new TransformerCanceledException("At least one stratum needs to be selected for export.");
             }
 
             return sb.ToString().TrimEnd(',');
