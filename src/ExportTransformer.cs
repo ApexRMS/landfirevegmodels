@@ -4,8 +4,9 @@ using System.IO;
 using System.Data;
 using System.Text;
 using System.Globalization;
-using System.Collections.Generic;
 using SyncroSim.Core;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace LandFireVegModels
 {
@@ -75,13 +76,48 @@ namespace LandFireVegModels
 
                     string Title = Path.GetFileNameWithoutExtension(targetFileName);
                     string EscapedTitle = Title.Replace("'", "''");
-                    string q = string.Format(CultureInfo.InvariantCulture, "UPDATE core_Library SET Name='{0}'", EscapedTitle);
+                    store.ExecuteNonQuery(string.Format(CultureInfo.InvariantCulture, "UPDATE core_Library SET Name='{0}'", EscapedTitle));
 
-                    store.ExecuteNonQuery(q);
+                    string ResultScenarioIdsToPurge = CreatePurgeResultScenarioIdString();
+                    if (!string.IsNullOrWhiteSpace(ResultScenarioIdsToPurge))
+                    {
+                        PurgeResultScenarios(store, ResultScenarioIdsToPurge);
+                    }
                 }
 
                 scope.Complete();
             }
+
+            //Note: this cannot be done within a transaction, so it has to be a separate step.
+            using (DataStore store = Session.CreateDataStore(conn))
+            {
+                store.Compact();
+            }
+        }
+
+        private void PurgeResultScenarios(DataStore store, string ResultScenarioIdsToPurge)
+        {
+            List<string> ScenarioDataSheetNames = this.Scenario.DataFeeds
+                .SelectMany(df => df.DataSheets)
+                .Where(ds => ds.DataScope == DataScope.Scenario)
+                .Select(ds => ds.Name)
+                .ToList();
+
+            foreach (string name in ScenarioDataSheetNames)
+            {
+                store.ExecuteNonQuery(string.Format(CultureInfo.InvariantCulture,
+                    "DELETE FROM [{0}] WHERE [{1}].{2} IN ({3})",
+                    name,
+                    name,
+                    "ScenarioId",
+                    ResultScenarioIdsToPurge));
+            }
+
+            store.ExecuteNonQuery(string.Format(CultureInfo.InvariantCulture,
+                "DELETE FROM core_ScenarioResult WHERE ResultId IN ({0})", ResultScenarioIdsToPurge));
+
+            store.ExecuteNonQuery(string.Format(CultureInfo.InvariantCulture,
+                "DELETE FROM core_Scenario WHERE ScenarioId IN ({0})", ResultScenarioIdsToPurge));
         }
 
         private static void PurgeStratumIds(
@@ -110,13 +146,7 @@ namespace LandFireVegModels
 
         private static bool ShouldProcessTable(string tableName)
         {
-            if (!tableName.StartsWith("stsim_") &&
-                !tableName.StartsWith("landfirevegmodels_"))
-            {
-                return false;
-            }
-
-            return true;
+            return tableName.StartsWith("stsim_") || tableName.StartsWith("landfirevegmodels_");
         }
 
         private string CreateKeepStratumIdString()
@@ -132,6 +162,22 @@ namespace LandFireVegModels
             if (sb.Length == 0)
             {
                 throw new TransformerCanceledException("At least one stratum needs to be selected for export.");
+            }
+
+            return sb.ToString().TrimEnd(',');
+        }
+
+        private string CreatePurgeResultScenarioIdString()
+        {
+            DataSheet scenarioResultDataSheet = this.Library.GetDataSheet("core_ScenarioResult");
+            StringBuilder sb = new StringBuilder();
+
+            foreach (DataRow dr in scenarioResultDataSheet.GetData().Rows)
+            {
+                if (Convert.ToInt32(dr["ScenarioID"]) == this.Scenario.Id)
+                {
+                    sb.AppendFormat(CultureInfo.InvariantCulture, "{0},", dr["ResultID"]);
+                }
             }
 
             return sb.ToString().TrimEnd(',');
