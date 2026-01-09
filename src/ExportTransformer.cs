@@ -78,7 +78,7 @@ namespace LandFireVegModels
                     string EscapedTitle = Title.Replace("'", "''");
                     store.ExecuteNonQuery(string.Format(CultureInfo.InvariantCulture, "UPDATE core_Library SET Name='{0}'", EscapedTitle));
 
-                    string ResultScenarioIdsToPurge = CreatePurgeResultScenarioIdString();
+                    string ResultScenarioIdsToPurge = CreatePurgeResultScenarioIdString(store);
                     if (!string.IsNullOrWhiteSpace(ResultScenarioIdsToPurge))
                     {
                         PurgeResultScenarios(store, ResultScenarioIdsToPurge);
@@ -126,22 +126,21 @@ namespace LandFireVegModels
             string keepStratumIds,
             DataStore store)
         {
-            string q = string.Format(CultureInfo.InvariantCulture,
+            store.ExecuteNonQuery(string.Format(CultureInfo.InvariantCulture,
                 "DELETE FROM {0} WHERE {1}.{2} NOT IN ({3})",
                 tableName,
                 tableName,
                 columnName,
-                keepStratumIds);
-
-            store.ExecuteNonQuery(q);
+                keepStratumIds));
         }
 
         private static DataTable GetTableSchema(string tableName, DataStore store)
         {
-            string q = string.Format(CultureInfo.InvariantCulture,
-                "SELECT * FROM {0} LIMIT 0", tableName);
-
-            return store.CreateDataTableFromQuery(q, "Table");
+            return store.CreateDataTableFromQuery(
+                string.Format(CultureInfo.InvariantCulture,
+                    "SELECT * FROM {0} LIMIT 0",
+                    tableName),
+                tableName);
         }
 
         private static bool ShouldProcessTable(string tableName)
@@ -167,12 +166,12 @@ namespace LandFireVegModels
             return sb.ToString().TrimEnd(',');
         }
 
-        private string CreatePurgeResultScenarioIdString()
+        private string CreatePurgeResultScenarioIdString(DataStore store)
         {
-            DataSheet scenarioResultDataSheet = this.Library.GetDataSheet("core_ScenarioResult");
+            DataTable scenarioResultsTable = store.CreateDataTable("core_ScenarioResult");
             StringBuilder sb = new StringBuilder();
 
-            foreach (DataRow dr in scenarioResultDataSheet.GetData().Rows)
+            foreach (DataRow dr in scenarioResultsTable.Rows)
             {
                 if (Convert.ToInt32(dr["ScenarioID"]) == this.Scenario.Id)
                 {
