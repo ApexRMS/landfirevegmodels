@@ -41,13 +41,13 @@ Enter a **Filename** or keep the default, select a **Folder** for your new libra
 
 Right-click on the Project datafeed (*i.e.*, **BpSModels**) and select **Open** (or **double-click** on BpSModels). Navigate to the **LANDFIRE vegetation models** tab, where you can specify details about the quantity, type, and composition of the vegetation for your model.
 
-<img align="middle" style="padding: 1px" width="500" src="assets/images/image-4">
+<img align="middle" style="padding: 1px" width="500" src="assets/images/image-4.png">
 
 Open the Scenario datafeed (*i.e.*, the LANDFIRE BpS Reference Condition Models). Navigate to the **LANDFIRE vegetation models** tab, where you can provide further information about the model, including detailed **Succession Class Descriptions** and **Succession Class Mapping Rules**.
 
 <img align="middle" style="padding: 1px" width="500" src="assets/images/image-5">
 
-<img align="middle" style="padding: 1px" width="500" src="assets/images/image-6">
+<img align="middle" style="padding: 1px" width="500" src="assets/images/image-6.png">
 
 <br>
 
