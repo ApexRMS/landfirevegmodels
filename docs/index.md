@@ -14,7 +14,7 @@ permalink: /
 
 ### **landfirevegmodels** is a SyncroSim package that delivers pre-built [LANDFIRE](https://landfire.gov/){:target="_blank"} state-and-transition models of vegetation dynamics for ecosystems across the United States.
 
-The moidels included in the **landfirevegmodels** package contains hundreds of state-and-transition simulation models (STSMs) of Biophysical Settings (BpS), designed by The Nature Conservancy's LANDFIRE program in collaboration with experts across the United States. These BpS models are reference condition models depicting what ecosystems may have looked like prior to European colonization of North America. The purpose of the **landfirevegmodels** package is to provide baseline models that can be modified to represent current landscapes and used to forecast the effects of ecosystem disturbances and/or management actions through simulations. Built on top of ST-Sim, the package comes with the models already constructed so you can focus on modifying and applying them to your area of interest rather than building from scratch.
+The models included in the **landfirevegmodels** package contains hundreds of state-and-transition simulation models (STSMs) of Biophysical Settings (BpS), designed by The Nature Conservancy's LANDFIRE program in collaboration with experts across the United States. These BpS models are reference condition models depicting what ecosystems may have looked like prior to European colonization of North America. The purpose of the **landfirevegmodels** package is to provide baseline models that can be modified to represent current landscapes and used to forecast the effects of ecosystem disturbances and/or management actions through simulations. Built on top of ST-Sim, the package comes with the models already constructed so you can focus on modifying and applying them to your area of interest rather than building from scratch.
 
 For more information on how these types of models can be used for assessing the state of the current landscape, as well as planning for management action based on simulated future landscapes, see [Blankenship et al., 2021](https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecs2.3484){:target="_blank"}.
 
@@ -22,7 +22,7 @@ For more information on how these types of models can be used for assessing the 
 
 ## Requirements
 
-This package requires the [SyncroSim version 3.1.29](https://syncrosim.com/download/){:target="_blank"} or newer.
+This package requires the [SyncroSim version 3.1.25](https://syncrosim.com/download/){:target="_blank"} or newer.
 
 <br>
 

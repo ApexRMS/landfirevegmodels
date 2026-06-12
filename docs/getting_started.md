@@ -14,7 +14,7 @@ This tutorial will provide a brief overview of:
 
 ## Installing required packages
 
-Download and install [SyncroSim version 3.1.29](https://syncrosim.com/download/){:target="_blank"} or higher and follow the installation prompts.
+Download and install [SyncroSim version 3.1.25](https://syncrosim.com/download/){:target="_blank"} or higher and follow the installation prompts.
 
 Open SyncroSim and select **File > Local Packages… > Install from Server**. Then, mark the check-boxes beside the **stsim** (version 4.5.3 or later).
 
